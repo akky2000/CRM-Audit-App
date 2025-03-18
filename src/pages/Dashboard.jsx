@@ -10,7 +10,7 @@ const Dashboard = () => {
   return (
     <div className="flex">
       <Sidebar />
-      <main className="flex-1 bg-[#E9F9F7] p-6 pt-16 overflow-auto h-screen">
+      <main className="flex-1 p-6 pt-16 overflow-auto h-screen">
         <Header user={user} />
         <button
           className="bg-red-500 text-white px-4 py-2 rounded-lg absolute top-4 right-4"

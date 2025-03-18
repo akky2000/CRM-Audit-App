@@ -37,34 +37,33 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-[#E9F9F7] text-black p-4 fixed top-0 left-0 w-full md:left-[250px] md:w-[calc(100%-250px)] z-10 flex flex-wrap md:flex-nowrap items-center justify-between gap-4 md:gap-6 shadow-md lg:flex-row lg:items-center lg:justify-between">
+    <header className="bg-[#E9F9F7] text-black p-4 fixed top-0 left-0 w-full md:left-[250px] md:w-[calc(100%-250px)] z-10 flex flex-wrap md:flex-nowrap items-center justify-between gap-4 md:gap-6 shadow-md">
       
       {/* Left Section: Greeting & Hub ID */}
-      <div className="flex flex-col md:flex-row items-center md:gap-4 w-full md:w-auto lg:flex-row lg:items-center">
+      <div className="flex flex-col md:flex-row items-center md:gap-4">
         <h2 className="text-lg font-semibold text-center md:text-left">
-        Hi, {user?.slice(0, 5)}
-
+          Hi, {user?.slice(0, 5)}
         </h2>
-        <div className="bg-gray-400 text-white px-2 py-1 rounded-md text-xs md:text-sm mt-1 md:mt-0 lg:px-3">
+        <div className="bg-gray-400 text-white px-2 py-1 rounded-md text-xs md:text-sm mt-1 md:mt-0">
           Hub ID: 234102 (hubspot-audit.analytics.io)
         </div>
       </div>
 
       {/* Right Section */}
-      <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 w-full md:w-auto justify-end lg:flex-row lg:items-center">
+      <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
         
-        {/* Buttons: Stacked on Mobile, Row on Tablet/Laptop */}
-        <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto lg:flex-row">
-          <button className="bg-gray-500 text-white px-3 py-2 rounded-md text-xs md:text-sm hover:bg-black transition w-full sm:w-auto lg:px-4">
+        {/* Buttons: Stacked on Mobile, Row on Larger Screens */}
+        <div className="flex flex-col sm:flex-row gap-2">
+          <button className="bg-gray-500 text-white px-3 py-2 rounded-md text-xs md:text-sm hover:bg-black transition">
             Take Bulk Action ↓
           </button>
-          <button className="bg-blue-500 text-white px-3 py-2 rounded-md text-xs md:text-sm hover:bg-blue-600 transition w-full sm:w-auto lg:px-4">
+          <button className="bg-blue-500 text-white px-3 py-2 rounded-md text-xs md:text-sm hover:bg-blue-600 transition">
             Generate New Report
           </button>
         </div>
 
         {/* Timestamp - Adjusts Responsively */}
-        <p className="text-gray-600 text-xs md:text-sm text-center md:text-right w-full md:w-auto lg:text-base">
+        <p className="text-gray-600 text-xs md:text-sm text-center md:text-right">
           Last Updated: {timestamp}
         </p>
 
@@ -76,7 +75,7 @@ const Header = () => {
           />
 
           {showDropdown && (
-            <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 shadow-lg rounded-lg overflow-hidden">
+            <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 shadow-lg rounded-lg">
               <p className="px-4 py-2 text-gray-700 text-sm">
                 Logged in as <strong>{user}</strong>
               </p>

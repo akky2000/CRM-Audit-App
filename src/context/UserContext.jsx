@@ -1,19 +1,15 @@
 import { createContext, useContext, useState } from "react";
 
-// ✅ Create Context
 const UserContext = createContext();
 
-// ✅ Create Provider Component
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(localStorage.getItem("currentUser") || null);
 
-  // Save user to localStorage on login
   const login = (email) => {
     localStorage.setItem("currentUser", email);
     setUser(email);
   };
 
-  // Remove user from localStorage on logout
   const logout = () => {
     localStorage.removeItem("currentUser");
     setUser(null);
@@ -26,7 +22,6 @@ export const UserProvider = ({ children }) => {
   );
 };
 
-// ✅ Custom Hook to Access UserContext
 export const useUser = () => {
   return useContext(UserContext);
 };
