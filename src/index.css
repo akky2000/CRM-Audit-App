@@ -12,3 +12,11 @@ body {
     background-color: #abe1db !important;
     font-family: Arial, sans-serif;
   }
+
+
+  html, body {
+    overflow: hidden;
+  }
+  
+  
+  
