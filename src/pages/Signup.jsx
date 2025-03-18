@@ -50,7 +50,6 @@ const Signup = () => {
         </div>
 
         <button
-          className="mt-6 bg-purple-500 text-white py-2 px-6 rounded-lg font-medium hover:bg-purple-600 transition"
           onClick={handleSignup}
         >
           Sign Up

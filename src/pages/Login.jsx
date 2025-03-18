@@ -38,7 +38,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gradient-to-r from-gray-100 to-purple-100">
+    <div className="flex justify-center items-center h-screen bg-gradient-to-r from-gray-100 to-purple-100 w-[100vw]">
       <div className="bg-white p-8 rounded-2xl shadow-lg w-96 text-center">
         
         <div className="flex justify-center items-center gap-4 mb-2">
@@ -72,14 +72,12 @@ const Login = () => {
 
         {!isOtpGenerated ? (
           <button
-            className="mt-6 bg-purple-100 text-purple-500 py-2 px-6 rounded-lg font-medium hover:bg-purple-200 transition"
             onClick={handleGenerateOtp}
           >
             Generate OTP
           </button>
         ) : (
           <button
-            className="mt-6 bg-purple-500 text-white py-2 px-6 rounded-lg font-medium hover:bg-purple-600 transition"
             onClick={handleLogin}
           >
             Login

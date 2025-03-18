@@ -1,14 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@300&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-
-*{
-    font-family: "Poppins", sans-serif;
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: "Lexend", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  background-color: #f8fafd;
 }
 
-body {
-    background-color: #abe1db !important;
-    font-family: Arial, sans-serif;
-  }
+button {
+  border-color: transparent;
+  background-color: #000;
+  color: #fff;
+  transform: translate3d(0, -2px, 0);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  padding: 8px 15px;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: medium;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: black;
+  margin: 0;
+  padding: 0;
+}

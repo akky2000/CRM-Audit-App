@@ -21,7 +21,7 @@ const Sidebar = () => {
 
       {/* Sidebar Wrapper (Fixed Sidebar Issue) */}
       <div
-        className={`fixed inset-y-0 left-0 bg-[#E9F9F7] z-40 shadow-md transform ${
+        className={`fixed inset-y-0 left-0 z-40 shadow-md transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 md:translate-x-0 md:w-64 w-64`}
       >
@@ -74,7 +74,7 @@ const Sidebar = () => {
           </nav>
 
           {/* Credits Section */}
-          <div className="mt-auto p-4 bg-[#E9F9F7] text-center rounded-lg shadow-md">
+          <div className="mt-auto p-4 text-center rounded-lg shadow-md">
             <p className="text-sm font-medium text-gray-700">Available Credits</p>
             <p className="text-lg font-bold text-red-600 tracking-wide">-80 / 100</p>
             <button

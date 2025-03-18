@@ -38,7 +38,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-[#E9F9F7] text-black p-4 fixed top-0 left-0 md:left-[250px] w-full md:w-[calc(100%-250px)] z-10 flex flex-col md:flex-row items-center justify-between gap-2 md:gap-4 shadow-md">
+    <header className="text-black p-4 fixed top-0 left-0 md:left-[250px] w-full md:w-[calc(100%-250px)] z-10 flex flex-col md:flex-row items-center justify-between gap-2 md:gap-4 shadow-md">
       {/* Left Section: Greeting & Hub ID */}
       <div className="flex flex-col md:flex-row items-center md:gap-4 w-full md:w-auto">
         <h2 className="text-lg font-semibold">Hi, {user} 👋</h2>
@@ -50,10 +50,10 @@ const Header = () => {
       {/* Right Section */}
       <div className="flex flex-col md:flex-row items-center md:gap-4 w-full md:w-auto justify-end">
         <div className="flex gap-2">
-          <button className="bg-black text-white px-3 py-2 rounded-md text-xs md:text-sm lg:text-base hover:bg-gray-800 transition">
+          <button>
             Take Bulk Action ↓
           </button>
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-md text-xs md:text-sm lg:text-base hover:bg-blue-600 transition">
+          <button>
             Generate New Report
           </button>
         </div>
