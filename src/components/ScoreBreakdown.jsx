@@ -35,9 +35,9 @@ const ScoreBreakdown = () => {
         </div>
 
         {/* Right Section: Auto-Adjusting Gauge Chart */}
-        <div className="flex-1 flex flex-col items-center justify-center bg-gray-50 p-6 rounded-xl shadow-md border border-gray-300 w-full min-h-[250px] md:min-h-[350px]">
+        <div className="flex-1 flex flex-col items-center justify-center bg-gray-50 p-6 rounded-xl shadow-md border border-gray-300 w-full min-h-[250px] md:min-h-[350px] ">
           {/* Gauge Chart */}
-          <div className="relative w-full flex justify-center">
+          <div className="relative w-full flex justify-center my-12 mt-1">
             <RadialBarChart
               width={250} // Scales better on tablets
               height={130} // Keeps the semi-circle shape
@@ -73,14 +73,14 @@ const ScoreBreakdown = () => {
 
             {/* Score Text Inside the Gauge */}
             <div className="absolute top-[10%] left-1/2 transform -translate-x-1/2 text-center">
-              <p className="text-lg font-semibold text-gray-600">Score</p>
-              <h2 className="text-2xl font-bold text-black">
+              <p className="text-lg font-semibold text-gray-600 mt-24 ">Score</p>
+              <h2 className="text-xl font-bold text-black ">
                 {gaugeData[0].value}%
               </h2>
             </div>
           </div>
 
-          {/* Description (Auto Wraps Dynamically) */}
+          
           <p className="text-gray-600 text-sm mt-4 px-4 text-center md:text-left">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste obcaecati eius neque
             expedita dolor et ipsum ad architecto repellendus autem saepe, eligendi laboriosam

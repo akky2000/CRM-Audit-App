@@ -57,7 +57,7 @@ const MissingData = () => {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="value" fill="#3b82f6" />
+          <Bar dataKey="value" fill="#60a5fa" />
         </BarChart>
       </ResponsiveContainer>
 
