@@ -2,7 +2,7 @@ import React from "react";
 
 const AuditScore = () => {
   return (
-    <div className="bg-white p-2 md:p-6 rounded-lg shadow-md 
+    <div className="bg-white p-14 md:p-6 rounded-lg shadow-md 
                     w-full max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 
                     mx-auto mt-20 md:mt-10 lg:mt-12 flex flex-col mg-10">
       
