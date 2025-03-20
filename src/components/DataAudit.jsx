@@ -9,7 +9,7 @@ const DataAudit = () => {
   ];
 
   return (
-    <div className="bg-white p-6 rounded-md border border-gray-200 max-w-6xl mx-auto mt-6">
+    <div className="bg-white p-6 rounded-md max-w-6xl mx-auto my-4">
       <h2 className="text-2xl font-bold text-gray-700 mb-4">Data Audit</h2>
 
       {/* Responsive Grid for Mobile, Tablet & Laptop */}

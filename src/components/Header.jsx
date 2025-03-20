@@ -42,7 +42,7 @@ const Header = () => {
           />
 
           {showDropdown && (
-            <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg">
+            <div className="absolute right-0 mt-2 p-2 w-24 bg-white border border-gray-200 rounded-md">
               <p onClick={handleLogout}>Logout</p>
             </div>
           )}

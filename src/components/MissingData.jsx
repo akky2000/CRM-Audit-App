@@ -73,7 +73,7 @@ const MissingData = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto p-6 bg-white rounded-md border border-gray-200">
+    <div className="max-w-6xl mx-auto p-6 bg-white rounded-md">
       <h2 className="text-2xl font-bold text-gray-700 mb-4">
         Missing Data - Deals
       </h2>

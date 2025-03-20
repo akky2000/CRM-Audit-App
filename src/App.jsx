@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import PastReports from "./pages/PastReports";
+import NotFound from "./pages/NotFound";
 import PastReportDetail from "./pages/PastReportDetails";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             path="/past-reports/:reportId"
             element={<PastReportDetail />}
           />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </UserProvider>

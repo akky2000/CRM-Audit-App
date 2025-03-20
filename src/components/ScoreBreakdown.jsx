@@ -45,7 +45,7 @@ const ScoreBreakdown = () => {
     : getScoreColor(selectedScore.score);
 
   return (
-    <div className="p-4 bg-white rounded-lg max-w-6xl mx-auto my-4 ">
+    <div className="p-4 bg-white rounded-lg max-w-6xl mx-auto my-4">
       <h2 className="text-start font-semibold text-lg mb-3">Score Breakdown</h2>
       <div className="flex flex-col-reverse md:flex-row gap-4">
         {/* Left Side - Scores */}
