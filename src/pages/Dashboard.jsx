@@ -5,7 +5,7 @@ import MainContent from "../components/MainContent";
 import { useUser } from "../context/UserContext";
 
 const Dashboard = () => {
-  const { user, logout } = useUser();
+  const { user } = useUser();
 
   return (
     <div className="flex">
