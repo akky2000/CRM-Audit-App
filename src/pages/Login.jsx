@@ -41,13 +41,19 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gradient-to-r from-gray-100 to-purple-100 w-[100vw]">
+<<<<<<< HEAD
       <div className="bg-white p-8 rounded-2xl shadow-lg w-96 text-center">
+=======
+      <div className="bg-white p-8 rounded-2xl shadow-md w-96 text-center">
+>>>>>>> 14f2e1d7eebc36c7ef505565fc38754c0bcb50e5
         <div className="flex justify-center items-center gap-4 mb-2">
           <img src={image1} alt="Image 1" className="w-8 h-12" />
           <img src={boundarylogo} alt="Boundary Logo" className="w-20" />
         </div>
 
-        <h2 className="text-xl font-semibold text-gray-700">Audit App | Sign In</h2>
+        <h2 className="text-xl font-semibold text-gray-700">
+          Audit App | Sign In
+        </h2>
 
         <div className="mt-6 text-left">
           <input
@@ -71,6 +77,7 @@ const Login = () => {
           />
         </div>
 
+<<<<<<< HEAD
         <button
           onClick={isOtpGenerated ? handleLogin : handleGenerateOtp}
           className="mt-6 w-full bg-pink-200 text-white py-2 rounded-lg hover:bg-purple-400 transition"
@@ -87,6 +94,20 @@ const Login = () => {
         <p className="mt-4 text-gray-600 text-sm">
           Don’t have an account? {" "}
           <span className="text-purple-500 cursor-pointer" onClick={() => navigate("/signup")}>
+=======
+        {!isOtpGenerated ? (
+          <button onClick={handleGenerateOtp}>Generate OTP</button>
+        ) : (
+          <button onClick={handleLogin}>Login</button>
+        )}
+
+        <p className="mt-4 text-gray-600 text-sm">
+          Don’t have an account?{" "}
+          <span
+            className="text-purple-500 cursor-pointer"
+            onClick={() => navigate("/signup")}
+          >
+>>>>>>> 14f2e1d7eebc36c7ef505565fc38754c0bcb50e5
             Sign Up
           </span>
         </p>

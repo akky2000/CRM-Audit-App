@@ -8,7 +8,6 @@ const Sidebar = () => {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(window.innerWidth >= 1024); // Open by default on large screens
 
-  
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
@@ -25,9 +24,7 @@ const Sidebar = () => {
   return (
     <>
       {/* Mobile Toggle Button */}
-      <button
-        onClick={() => setIsOpen(true)}
-      >
+      <button onClick={() => setIsOpen(true)}>
         <FiMenu size={24} />
       </button>
 
@@ -40,20 +37,28 @@ const Sidebar = () => {
         <aside className="h-full flex flex-col relative pl-4">
           {/* Close Button (Only for Mobile) */}
           <button
-            className="absolute top-4 right-4 text-black lg:hidden"
+            className="absolute top-4 right-4 p-0 bg-white text-black lg:hidden"
             onClick={() => setIsOpen(false)}
           >
             <FiX size={24} />
           </button>
 
           {/* Sidebar Header */}
-          <div className="flex items-center justify-start space-x-2 p-4 mt-6 lg:mt-0">
-            <img src={Logo1} alt="New Logo" className="h-8 w-8 object-contain" />
-            <img src={boundaryLogo} alt="Boundary Logo" className="h-8 w-auto object-contain" />
+          <div className="flex items-center justify-start space-x-2 p-4 mt-6 lg:mt-3">
+            <img
+              src={Logo1}
+              alt="New Logo"
+              className="h-8 w-8 object-contain"
+            />
+            <img
+              src={boundaryLogo}
+              alt="Boundary Logo"
+              className="h-8 w-auto object-contain"
+            />
           </div>
 
           {/* Navigation */}
-          <nav className="flex flex-col space-y-4 p-4">
+          <nav className="flex flex-col space-y-4 p-4 mt-5">
             <Link
               to="/dashboard"
               className={`px-4 py-2 bg-inherit rounded-md transition text-start ${
@@ -80,10 +85,13 @@ const Sidebar = () => {
           </nav>
 
           {/* Credits Section */}
-          <div className="mt-auto p-4 text-center rounded-lg items-center justify-center mx-auto gap-1 flex flex-col ml-[40px]">
-            <p className="text-lg font-semibold text-gray-700">Available Credits</p>
-            <p className="text-lg font-medium tracking-wide">-80 / 100</p>
-            <button className="flex items-center justify-center disabled:cursor-not-allowed" disabled>
+          <div className="mt-auto p-4 text-center rounded-lg items-center justify-center mx-auto flex flex-col ml-[40px]">
+            <p className="text-lg font-md">Available Credits</p>
+            <p className="text-lg font-semibold tracking-wide mb-3">-80/100</p>
+            <button
+              className="flex items-center justify-center disabled:cursor-not-allowed bg-gray-600"
+              disabled
+            >
               <FiPlus className="mr-2" size={16} /> Add Credits
             </button>
           </div>
@@ -91,7 +99,11 @@ const Sidebar = () => {
       </div>
 
       {/* Main Content Wrapper (Ensuring Sidebar Doesn’t Overlap) */}
-      <div className={`transition-all duration-300 lg:ml-72 ${isOpen ? "ml-64" : "ml-0"}`}>
+      <div
+        className={`transition-all duration-300 lg:ml-60 ${
+          isOpen ? "ml-64" : "ml-0"
+        }`}
+      >
         {/* Overlay for Mobile */}
         {isOpen && window.innerWidth < 1024 && (
           <div
