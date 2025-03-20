@@ -1,86 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../components/SideBar";
 import { useNavigate } from "react-router-dom";
 import { fetchReportList } from "../api";
+import { useUser } from "../context/UserContext";
 
 const PastReports = () => {
   const navigate = useNavigate();
-  const [reportsData, setReports] = useState([]);
+  const [reports, setReports] = useState([]);
 
-  const reports = [
-    {
-      id: 1,
-      domain: "hubspot-demo-account.contentninja.in",
-      date: "3/8/2025",
-      score: 72.5,
-    },
-    {
-      id: 2,
-      domain: "hubspot-demo-account.contentninja.in",
-      date: "3/8/2025",
-      score: 58.5,
-    },
-    {
-      id: 3,
-      domain: "hubspot-demo-account.contentninja.in",
-      date: "3/8/2025",
-      score: 58.5,
-    },
-    {
-      id: 4,
-      domain: "hubspot-demo-account.contentninja.in",
-      date: "3/7/2025",
-      score: 58.5,
-    },
-    {
-      id: 5,
-      domain: "hubspot-demo-account.contentninja.in",
-      date: "3/7/2025",
-      score: 70.1,
-    },
-    {
-      id: 6,
-      domain: "hubspot-demo-account.contentninja.in",
-      date: "3/8/2025",
-      score: 72.5,
-    },
-    {
-      id: 7,
-      domain: "hubspot-demo-account.contentninja.in",
-      date: "3/8/2025",
-      score: 58.5,
-    },
-    {
-      id: 8,
-      domain: "hubspot-demo-account.contentninja.in",
-      date: "3/8/2025",
-      score: 58.5,
-    },
-    {
-      id: 9,
-      domain: "hubspot-demo-account.contentninja.in",
-      date: "3/7/2025",
-      score: 58.5,
-    },
-    {
-      id: 10,
-      domain: "hubspot-demo-account.contentninja.in",
-      date: "3/7/2025",
-      score: 70.1,
-    },
-    {
-      id: 11,
-      domain: "hubspot-demo-account.contentninja.in",
-      date: "3/7/2025",
-      score: 58.5,
-    },
-    {
-      id: 12,
-      domain: "hubspot-demo-account.contentninja.in",
-      date: "3/7/2025",
-      score: 70.1,
-    },
-  ];
+  const { token } = useUser();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetchReportList(token);
+        setReports(response?.data);
+      } catch (error) {
+        setError(error);
+        console.error("Failed to fetch audit data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const [currentPage, setCurrentPage] = useState(1);
   const reportsPerPage = 10;
@@ -147,13 +91,19 @@ const PastReports = () => {
                     {indexOfFirstReport + index + 1}
                   </td>
                   <td className="p-2 border border-gray-300">
-                    {report.domain}
+                    {report?.hub_domain}
                   </td>
-                  <td className="p-2 border border-gray-300">{report.date}</td>
-                  <td className="p-2 border border-gray-300">{report.score}</td>
+                  <td className="p-2 border border-gray-300">
+                    {report?.created_at}
+                  </td>
+                  <td className="p-2 border border-gray-300">
+                    {report?.score}
+                  </td>
                   <td className="p-2 border border-gray-300">
                     <button
-                      onClick={() => navigate(`/past-reports/${report.id}`)}
+                      onClick={() =>
+                        navigate(`/past-reports/${report.report_id}`)
+                      }
                     >
                       View Report
                     </button>
