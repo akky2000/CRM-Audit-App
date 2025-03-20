@@ -24,7 +24,7 @@ const Login = () => {
     if (email) {
       setIsOtpGenerated(true);
       setOtpSent(true);
-      setTimeout(() => setOtpSent(false), 3000); // Hide after 3s
+      setTimeout(() => setOtpSent(false), 3000);
     } else {
       alert("Enter your email first!");
     }
