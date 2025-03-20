@@ -19,6 +19,12 @@ const PastReports = () => {
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold text-center">Past Reports</h2>
+
+      <div className="mt-4 text-center flex justify-center items-center gap-4 text-gray-700">
+        <p className="underline text-sm hover:cursor-pointer">Previous</p>
+        <span>Page 1 of 2</span>
+        <p className="underline text-sm hover:cursor-pointer">Next</p>
+      </div>
       
       <table className="w-full mt-4 border-collapse border border-gray-300">
         <thead>
@@ -44,13 +50,6 @@ const PastReports = () => {
           ))}
         </tbody>
       </table>
-      
-      
-      <div className="mt-4 text-center">
-        <button >Previous</button>
-        <span className="mx-4">Page 1 of 2</span>
-        <button >Next</button>
-      </div>
     </div>
   );
 };

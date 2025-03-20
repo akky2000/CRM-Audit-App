@@ -37,7 +37,7 @@ const Sidebar = () => {
           isOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 lg:w-72`}
       >
-        <aside className="h-full flex flex-col relative">
+        <aside className="h-full flex flex-col relative pl-4">
           {/* Close Button (Only for Mobile) */}
           <button
             className="absolute top-4 right-4 text-black lg:hidden"
@@ -56,9 +56,9 @@ const Sidebar = () => {
           <nav className="flex flex-col space-y-4 p-4">
             <Link
               to="/dashboard"
-              className={`px-4 py-3 bg-inherit rounded-md transition text-start ${
+              className={`px-4 py-2 bg-inherit rounded-md transition text-start ${
                 location.pathname === "/dashboard"
-                  ? "bg-gradient-to-r from-[#9b87f51a] to-[#7e69ab1a] text-black font-bold"
+                  ? "bg-gradient-to-r from-[#9b87f51a] to-[#7e69ab1a] text-black font-semibold"
                   : "hover:bg-gradient-to-r from-[#9b87f51a] to-[#7e69ab1a] hover:text-black"
               }`}
               onClick={() => setIsOpen(false)}
@@ -68,9 +68,9 @@ const Sidebar = () => {
 
             <Link
               to="/past-reports"
-              className={`px-4 py-3 rounded-md transition text-start ${
+              className={`px-4 py-2 rounded-md transition text-start ${
                 location.pathname === "/past-reports"
-                  ? "bg-gradient-to-r from-[#9b87f51a] to-[#7e69ab1a] text-black font-bold"
+                  ? "bg-gradient-to-r from-[#9b87f51a] to-[#7e69ab1a] text-black font-semibold"
                   : "hover:bg-gradient-to-r from-[#9b87f51a] to-[#7e69ab1a] hover:text-black"
               }`}
               onClick={() => setIsOpen(false)}
@@ -80,10 +80,10 @@ const Sidebar = () => {
           </nav>
 
           {/* Credits Section */}
-          <div className="mt-auto p-4 text-center rounded-lg items-center justify-center mx-auto gap-1 flex flex-col">
+          <div className="mt-auto p-4 text-center rounded-lg items-center justify-center mx-auto gap-1 flex flex-col ml-[40px]">
             <p className="text-lg font-semibold text-gray-700">Available Credits</p>
             <p className="text-lg font-medium tracking-wide">-80 / 100</p>
-            <button className="flex items-center justify-center">
+            <button className="flex items-center justify-center disabled:cursor-not-allowed" disabled>
               <FiPlus className="mr-2" size={16} /> Add Credits
             </button>
           </div>
