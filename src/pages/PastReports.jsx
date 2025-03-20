@@ -94,7 +94,7 @@ const PastReports = () => {
                     {report?.hub_domain}
                   </td>
                   <td className="p-2 border border-gray-300">
-                    {report?.created_at}
+                    {new Date(report.created_at).toLocaleDateString("en-US")}
                   </td>
                   <td className="p-2 border border-gray-300">
                     {report?.score}
