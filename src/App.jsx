@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { UserProvider } from "./context/UserContext"; 
+import { UserProvider } from "./context/UserContext";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import PastReports from "./pages/PastReports";
-
+import PastReportDetail from "./pages/PastReportDetails";
 
 function App() {
   return (
@@ -16,6 +16,10 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/past-reports" element={<PastReports />} />
+          <Route
+            path="/past-reports/:reportId"
+            element={<PastReportDetail />}
+          />
         </Routes>
       </Router>
     </UserProvider>

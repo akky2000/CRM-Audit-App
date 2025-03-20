@@ -7,30 +7,7 @@ const Header = () => {
   const { user, logout } = useUser();
   const navigate = useNavigate();
   const location = useLocation();
-  const [timestamp, setTimestamp] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
-
-  useEffect(() => {
-    const updateTimestamp = () => {
-      const now = new Date();
-      setTimestamp(
-        now.toLocaleString("en-GB", {
-          weekday: "short",
-          day: "2-digit",
-          month: "short",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          timeZoneName: "short",
-        })
-      );
-    };
-
-    updateTimestamp();
-    const interval = setInterval(updateTimestamp, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   const handleLogout = () => {
     logout();
@@ -42,12 +19,9 @@ const Header = () => {
 
   return (
     <header className="text-black p-5 bg-[#f8fafd] fixed top-0 left-0 w-full lg:left-72 lg:w-[calc(100%-18rem)] z-10 flex flex-wrap lg:flex-nowrap items-center justify-between gap-4 lg:gap-6">
-      
       {/* Left Section: Hi, User & Hub ID (Now in Same Row on Tablets) */}
       <div className="flex sm:flex-row items-center sm:gap-4 w-full sm:w-auto">
-        <h2 className="text-lg font-semibold text-center sm:text-left">
-          Hi, {user?.slice(0, 5)}
-        </h2>
+        <h2 className="text-2xl text-center sm:text-left">Hi, {user}</h2>
         <div className="bg-gray-400 text-white px-2 py-1 rounded-md text-xs sm:text-sm mt-1 sm:mt-0">
           Hub ID: 234102 (hubspot-audit.analytics.io)
         </div>
@@ -55,15 +29,10 @@ const Header = () => {
 
       {/* Right Section (Stacked on Tablets) */}
       <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 w-full sm:w-auto">
-        
         {/* Buttons (Same Row on Tablets) */}
         <div className="flex md:flex-row gap-2 w-full sm:w-auto">
-          <button>
-            Take Bulk Action ↓
-          </button>
-          <button>
-            Generate New Report
-          </button>
+          <button>Take Bulk Action ↓</button>
+          <button>Generate New Report</button>
         </div>
 
         <div className="relative">
@@ -74,11 +43,7 @@ const Header = () => {
 
           {showDropdown && (
             <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 shadow-lg rounded-lg">
-              <p
-                onClick={handleLogout}
-              >
-                Logout
-              </p>
+              <p onClick={handleLogout}>Logout</p>
             </div>
           )}
         </div>
