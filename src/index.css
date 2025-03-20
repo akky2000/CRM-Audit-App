@@ -24,7 +24,6 @@ button {
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
   padding: 8px 15px;
   cursor: pointer;
-  margin-left: 10px;
   font-size: medium;
 }
 
@@ -39,8 +38,7 @@ h6 {
   padding: 0;
 }
 
-
-html, body {
+html,
+body {
   overflow: hidden;
 }
-

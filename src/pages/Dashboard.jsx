@@ -16,20 +16,8 @@ const Dashboard = () => {
   return (
     <div className="flex">
       <Sidebar />
-      <main className="flex-1 p-6 pt-16 overflow-auto h-screen">
-        <Header user={user} />
-        
-       
-        {!isPastReportsPage && (
-          <button
-            className="bg-red-500 text-white px-4 py-2 rounded-lg absolute top-4 right-4"
-            onClick={logout}
-          >
-            Logout
-          </button>
-        )}
-
-        
+      <main className="flex-1 overflow-auto h-screen">
+        <Header user={user} /> 
         {isPastReportsPage ? <PastReports /> : <MainContent />}
       </main>
     </div>

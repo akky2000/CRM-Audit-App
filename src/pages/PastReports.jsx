@@ -38,7 +38,7 @@ const PastReports = () => {
               <td className="p-2 border border-gray-300">{report.date}</td>
               <td className="p-2 border border-gray-300">{report.score}</td>
               <td className="p-2 border border-gray-300">
-                <button className="bg-black text-white px-3 py-1 rounded-md">View Report</button>
+                <button>View Report</button>
               </td>
             </tr>
           ))}
@@ -47,9 +47,9 @@ const PastReports = () => {
       
       
       <div className="mt-4 text-center">
-        <button className="text-gray-600 hover:text-black">Previous</button>
+        <button >Previous</button>
         <span className="mx-4">Page 1 of 2</span>
-        <button className="text-gray-600 hover:text-black">Next</button>
+        <button >Next</button>
       </div>
     </div>
   );
