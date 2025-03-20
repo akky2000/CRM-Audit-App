@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { RadialBarChart, RadialBar, PolarAngleAxis } from "recharts";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 const ScoreBreakdown = () => {
   const scores = [
@@ -7,14 +8,14 @@ const ScoreBreakdown = () => {
       title: "Data Quality",
       score: 75,
       description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "Lorem Ipsum is simply dummy text since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       comingSoon: false,
     },
     {
       title: "Sales",
       score: 45,
       description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "Lorem Ipsum is simply dummy text since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       comingSoon: false,
     },
     {
@@ -33,15 +34,22 @@ const ScoreBreakdown = () => {
 
   const [selectedScore, setSelectedScore] = useState(scores[0]);
 
-  const gaugeData = [
-    { value: selectedScore.comingSoon ? 0 : selectedScore.score },
-  ];
+  const getScoreColor = (score) => {
+    if (score <= 24) return "#ef4444"; // Red
+    if (score <= 70) return "#f97316"; // Orange
+    return "#22c55e"; // Green
+  };
+
+  const pathColor = selectedScore.comingSoon
+    ? "#d1d5db"
+    : getScoreColor(selectedScore.score);
 
   return (
-    <div className="p-4 bg-white rounded-lg max-w-6xl mx-auto my-4 shadow-sm">
+    <div className="p-4 bg-white rounded-lg max-w-6xl mx-auto my-4 ">
       <h2 className="text-start font-semibold text-lg mb-3">Score Breakdown</h2>
-      <div className="flex flex-col md:flex-row gap-4">
-        <div className="flex-1 flex flex-col gap-3 py-4 rounded-xl">
+      <div className="flex flex-col-reverse md:flex-row gap-4">
+        {/* Left Side - Scores */}
+        <div className="flex-1 flex flex-col gap-3 rounded-xl">
           {scores.map((item) => (
             <div
               key={item.title}
@@ -78,40 +86,30 @@ const ScoreBreakdown = () => {
           ))}
         </div>
 
-        {/* Gauge & Description */}
-        <div className="flex-1 flex flex-col items-center bg-gray-50 py-4 px-2 rounded-xl border border-gray-200">
-          <RadialBarChart
-            width={200}
-            height={130}
-            cx="50%"
-            cy={140}
-            innerRadius={50}
-            outerRadius={90}
-            startAngle={180}
-            endAngle={0}
-            data={gaugeData}
-          >
-            <PolarAngleAxis type="number" domain={[0, 100]} tick={false} />
-            <RadialBar background dataKey="value" fill="url(#grad)" clockWise />
-            <defs>
-              <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#ef4444" />
-                <stop offset="50%" stopColor="#facc15" />
-                <stop offset="100%" stopColor="#22c55e" />
-              </linearGradient>
-            </defs>
-          </RadialBarChart>
-
-          {/* Score Text */}
-          <div className="text-center mt-8">
-            <p className="text-gray-500 font-medium text-sm">Score</p>
-            <h2 className="text-2xl font-bold">
-              {selectedScore.comingSoon ? "?" : selectedScore.score}%
-            </h2>
+        {/* Right Side - Circular Progress Bar & Description */}
+        <div className="flex-1 flex flex-col items-center py-6 rounded-xl border border-gray-200">
+          <div className="w-36 h-36">
+            <CircularProgressbar
+              value={selectedScore.comingSoon ? 0 : selectedScore.score}
+              text={`${selectedScore.comingSoon ? "?" : selectedScore.score}%`}
+              strokeWidth={10}
+              styles={buildStyles({
+                textColor: "#374151",
+                pathColor,
+                trailColor: "#e5e7eb",
+                strokeLinecap: "round",
+                textSize: "20px",
+              })}
+            />
           </div>
 
+          {/* Selected Score Title */}
+          <h2 className="mt-4 text-xl font-semibold text-gray-700">
+            {selectedScore.title}
+          </h2>
+
           {/* Dynamic Description */}
-          <p className="mt-3 text-gray-600 text-sm text-center px-2">
+          <p className="mt-3 text-gray-600 text-sm px-2 text-start">
             {selectedScore.description}
           </p>
         </div>
