@@ -21,7 +21,9 @@ const Header = () => {
     <header className="text-black p-5 bg-[#f8fafd] fixed top-0 left-0 w-full lg:left-72 lg:w-[calc(100%-18rem)] z-10 flex flex-wrap lg:flex-nowrap items-center justify-between gap-4 lg:gap-6">
       {/* Left Section: Hi, User & Hub ID (Now in Same Row on Tablets) */}
       <div className="flex sm:flex-row items-center sm:gap-4 w-full sm:w-auto">
-        <h2 className="text-2xl text-center sm:text-left">Hi, {user}</h2>
+        <h2 className="text-2xl text-center sm:text-left">
+          Hi, {user?.hub_details?.data?.hs_user}
+        </h2>
         <div className="bg-gray-400 text-white px-2 py-1 rounded-md text-xs sm:text-sm mt-1 sm:mt-0">
           Hub ID: 234102 (hubspot-audit.analytics.io)
         </div>

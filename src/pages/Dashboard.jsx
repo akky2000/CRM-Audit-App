@@ -11,7 +11,7 @@ const Dashboard = () => {
     <div className="flex">
       <Sidebar />
       <main className="flex-1 overflow-auto h-screen">
-        <Header user={user} />
+        <Header user={user?.hub_details?.data?.hs_user} />
         <MainContent />
       </main>
     </div>

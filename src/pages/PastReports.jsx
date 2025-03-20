@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/SideBar";
+import { useNavigate } from "react-router-dom";
+import { fetchReportList } from "../api";
 
 const PastReports = () => {
+  const navigate = useNavigate();
+  const [reportsData, setReports] = useState([]);
+
   const reports = [
     {
       id: 1,
@@ -63,7 +68,32 @@ const PastReports = () => {
       date: "3/7/2025",
       score: 70.1,
     },
+    {
+      id: 11,
+      domain: "hubspot-demo-account.contentninja.in",
+      date: "3/7/2025",
+      score: 58.5,
+    },
+    {
+      id: 12,
+      domain: "hubspot-demo-account.contentninja.in",
+      date: "3/7/2025",
+      score: 70.1,
+    },
   ];
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const reportsPerPage = 10;
+
+  const indexOfLastReport = currentPage * reportsPerPage;
+  const indexOfFirstReport = indexOfLastReport - reportsPerPage;
+  const currentReports = reports.slice(indexOfFirstReport, indexOfLastReport);
+  const totalPages = Math.ceil(reports.length / reportsPerPage);
+
+  const goToPreviousPage = () =>
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+  const goToNextPage = () =>
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
 
   return (
     <div className="flex">
@@ -73,9 +103,31 @@ const PastReports = () => {
           <h2 className="text-2xl font-bold text-center">Past Reports</h2>
 
           <div className="mt-4 text-center flex justify-center items-center gap-4 text-gray-700">
-            <p className="underline text-sm hover:cursor-pointer">Previous</p>
-            <span>Page 1 of 2</span>
-            <p className="underline text-sm hover:cursor-pointer">Next</p>
+            <p
+              className={`underline text-sm ${
+                currentPage === 1
+                  ? "text-gray-400 cursor-not-allowed"
+                  : "hover:cursor-pointer"
+              }`}
+              onClick={goToPreviousPage}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </p>
+            <span>
+              Page {currentPage} of {totalPages}
+            </span>
+            <p
+              className={`underline text-sm ${
+                currentPage === totalPages
+                  ? "text-gray-400 cursor-not-allowed"
+                  : "hover:cursor-pointer"
+              }`}
+              onClick={goToNextPage}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </p>
           </div>
 
           <table className="w-full mt-4 border-collapse border border-gray-300">
@@ -89,16 +141,22 @@ const PastReports = () => {
               </tr>
             </thead>
             <tbody>
-              {reports.map((report, index) => (
+              {currentReports.map((report, index) => (
                 <tr key={report.id} className="bg-gray-100 text-center">
-                  <td className="p-2 border border-gray-300">{index + 1}</td>
+                  <td className="p-2 border border-gray-300">
+                    {indexOfFirstReport + index + 1}
+                  </td>
                   <td className="p-2 border border-gray-300">
                     {report.domain}
                   </td>
                   <td className="p-2 border border-gray-300">{report.date}</td>
                   <td className="p-2 border border-gray-300">{report.score}</td>
                   <td className="p-2 border border-gray-300">
-                    <button>View Report</button>
+                    <button
+                      onClick={() => navigate(`/past-reports/${report.id}`)}
+                    >
+                      View Report
+                    </button>
                   </td>
                 </tr>
               ))}
