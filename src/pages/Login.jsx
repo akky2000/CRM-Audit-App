@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../context/UserContext"; // Import Context Hook
+import { useUser } from "../context/UserContext"; 
 import boundarylogo from "../assets/boundary.png";
 import image1 from "../images/image1.png";
 

@@ -31,7 +31,7 @@ const Signup = () => {
     <div className="flex justify-center items-center h-screen bg-gradient-to-r from-gray-100 to-purple-100">
       <div className="bg-white p-8 rounded-2xl shadow-lg w-96 text-center">
 
-        {/* ✅ Fixed: Both Logos in One Line */}
+        
         <div className="flex justify-center items-center gap-4 mb-2">
           <img src={image1} alt="Image 1" className="w-12 h-12" />
           <img src={boundarylogo} alt="Boundary Logo" className="w-32" />
