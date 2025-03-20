@@ -9,7 +9,7 @@ const DataAudit = () => {
   ];
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 max-w-6xl mx-auto mt-6">
+    <div className="bg-white p-6 rounded-md border border-gray-200 max-w-6xl mx-auto mt-6">
       <h2 className="text-2xl font-bold text-gray-700 mb-4">Data Audit</h2>
 
       {/* Responsive Grid for Mobile, Tablet & Laptop */}
@@ -17,13 +17,17 @@ const DataAudit = () => {
         {auditData.map((item, index) => (
           <div
             key={index}
-            className={`p-6 rounded-xl bg-white shadow-md border text-center 
+            className={`p-6 rounded-xl bg-white border text-center 
             transition-transform duration-300 transform hover:scale-110 hover:shadow-lg 
             hover:border-blue-400 hover:bg-blue-50 cursor-pointer 
             ${item.warning ? "border-yellow-500" : "border-green-300"}`}
           >
-            <p className="text-sm sm:text-base font-medium text-gray-600">{item.title}</p>
-            <p className="text-lg sm:text-2xl font-bold text-black mt-2">{item.score}</p>
+            <p className="text-sm sm:text-base font-medium text-gray-600">
+              {item.title}
+            </p>
+            <p className="text-lg sm:text-2xl font-bold text-black mt-2">
+              {item.score}
+            </p>
           </div>
         ))}
       </div>

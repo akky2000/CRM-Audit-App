@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../context/UserContext"; 
+import { useUser } from "../context/UserContext";
 import boundarylogo from "../assets/boundary.png";
 import image1 from "../images/image1.png";
 
@@ -39,14 +39,15 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gradient-to-r from-gray-100 to-purple-100 w-[100vw]">
-      <div className="bg-white p-8 rounded-2xl shadow-lg w-96 text-center">
-        
+      <div className="bg-white p-8 rounded-2xl shadow-md w-96 text-center">
         <div className="flex justify-center items-center gap-4 mb-2">
           <img src={image1} alt="Image 1" className="w-8 h-12" />
           <img src={boundarylogo} alt="Boundary Logo" className="w-" />
         </div>
 
-        <h2 className="text-xl font-semibold text-gray-700">Audit App | Sign In</h2>
+        <h2 className="text-xl font-semibold text-gray-700">
+          Audit App | Sign In
+        </h2>
 
         <div className="mt-6 text-left">
           <input
@@ -71,22 +72,17 @@ const Login = () => {
         )}
 
         {!isOtpGenerated ? (
-          <button
-            onClick={handleGenerateOtp}
-          >
-            Generate OTP
-          </button>
+          <button onClick={handleGenerateOtp}>Generate OTP</button>
         ) : (
-          <button
-            onClick={handleLogin}
-          >
-            Login
-          </button>
+          <button onClick={handleLogin}>Login</button>
         )}
 
         <p className="mt-4 text-gray-600 text-sm">
           Don’t have an account?{" "}
-          <span className="text-purple-500 cursor-pointer" onClick={() => navigate("/signup")}>
+          <span
+            className="text-purple-500 cursor-pointer"
+            onClick={() => navigate("/signup")}
+          >
             Sign Up
           </span>
         </p>

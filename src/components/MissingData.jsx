@@ -1,21 +1,68 @@
 import React from "react";
 import { Bar } from "recharts";
 import { FaCheckCircle, FaExclamationTriangle } from "react-icons/fa";
-import { ResponsiveContainer, BarChart, XAxis, YAxis, Tooltip, Legend } from "recharts";
+import {
+  ResponsiveContainer,
+  BarChart,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+} from "recharts";
 
 const MissingData = () => {
   const missingData = [
-    { title: "Deals without Name", percentage: "0%", count: "0 / 84", status: "critical" },
-    { title: "Deals without Owner", percentage: "4.48%", count: "10 / 223", status: "critical" },
-    { title: "Deals without Associated Contact", percentage: "96.4%", count: "215 / 223", status: "ok" },
-    { title: "Deals without Associated Company", percentage: "9.54%", count: "20 / 223", status: "warning" },
+    {
+      title: "Deals without Name",
+      percentage: "0%",
+      count: "0 / 84",
+      status: "critical",
+    },
+    {
+      title: "Deals without Owner",
+      percentage: "4.48%",
+      count: "10 / 223",
+      status: "critical",
+    },
+    {
+      title: "Deals without Associated Contact",
+      percentage: "96.4%",
+      count: "215 / 223",
+      status: "ok",
+    },
+    {
+      title: "Deals without Associated Company",
+      percentage: "9.54%",
+      count: "20 / 223",
+      status: "warning",
+    },
   ];
 
   const mustHaveData = [
-    { title: "Deals without Close Date", percentage: "0%", count: "0 / 223", status: "ok" },
-    { title: "Deals without Amount", percentage: "0.07%", count: "1 / 223", status: "warning" },
-    { title: "Lost Deals without Last Reason", percentage: "4.77%", count: "11 / 223", status: "ok" },
-    { title: "Deals without Deal Type", percentage: "0%", count: "0 / 223", status: "ok" },
+    {
+      title: "Deals without Close Date",
+      percentage: "0%",
+      count: "0 / 223",
+      status: "ok",
+    },
+    {
+      title: "Deals without Amount",
+      percentage: "0.07%",
+      count: "1 / 223",
+      status: "warning",
+    },
+    {
+      title: "Lost Deals without Last Reason",
+      percentage: "4.77%",
+      count: "11 / 223",
+      status: "ok",
+    },
+    {
+      title: "Deals without Deal Type",
+      percentage: "0%",
+      count: "0 / 223",
+      status: "ok",
+    },
   ];
 
   const chartData = [
@@ -26,9 +73,11 @@ const MissingData = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto p-6 bg-white rounded-xl shadow-lg border border-gray-200">
-      <h2 className="text-2xl font-bold text-gray-700 mb-4">Missing Data - Deals</h2>
-      
+    <div className="max-w-7xl mx-auto p-6 bg-white rounded-md border border-gray-200">
+      <h2 className="text-2xl font-bold text-gray-700 mb-4">
+        Missing Data - Deals
+      </h2>
+
       {/* Section 1: Are You Kidding Me! */}
       <h3 className="text-lg font-semibold mb-3">Are you kidding me!</h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
