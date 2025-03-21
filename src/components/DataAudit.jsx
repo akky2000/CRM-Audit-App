@@ -1,36 +1,32 @@
 import React from "react";
+import MissingData from "../components/MissingData";
 
 const DataAudit = () => {
+  const [selectedItem, setSelectedItem] = React.useState("Contacts");
   const auditData = [
-    { title: "Contacts", score: "68/100", warning: true },
-    { title: "Companies", score: "64/100", warning: true },
-    { title: "Deals", score: "83/100", success: true },
-    { title: "Tickets", score: "80/100", highlight: true },
+    { title: "Contacts", score: "60/100" },
+    { title: "Companies", score: "60/100" },
+    { title: "Deals", score: "60/100" },
+    { title: "Tickets", score: "60/100" },
   ];
 
-  return (
-    <div className="bg-white p-6 rounded-md max-w-6xl mx-auto my-4">
-      <h2 className="text-2xl font-bold text-gray-700 mb-4">Data Audit</h2>
+  console.log(selectedItem);
 
-      {/* Responsive Grid for Mobile, Tablet & Laptop */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+  return (
+    <div className="mb-6">
+      <div className="flex gap-4">
         {auditData.map((item, index) => (
           <div
             key={index}
-            className={`p-6 rounded-xl bg-white border text-center 
-            transition-transform duration-300 transform hover:scale-110 hover:shadow-lg 
-            hover:border-blue-400 hover:bg-blue-50 cursor-pointer 
-            ${item.warning ? "border-yellow-500" : "border-green-300"}`}
+            className="px-4 py-3 rounded-t-lg border border-gray-300 border-b-0 text-center cursor-pointer hover:bg-gray-100"
+            onClick={() => setSelectedItem(item.title)}
           >
-            <p className="text-sm sm:text-base font-medium text-gray-600">
-              {item.title}
-            </p>
-            <p className="text-lg sm:text-2xl font-bold text-black mt-2">
-              {item.score}
-            </p>
+            <p className="text-sm font-semibold">{item.title}</p>
+            <p className="text-lg font-bold">{item.score}</p>
           </div>
         ))}
       </div>
+      <MissingData selectedItem={selectedItem} />
     </div>
   );
 };

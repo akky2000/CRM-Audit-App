@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { findBorderColor, getScoreColor } from "../utils";
 
-const ScoreBreakdown = () => {
+const ScoreBreakdown = ({ selectedBreakdown, setSelectedBreakdown }) => {
   const scores = [
     {
       title: "Data Quality",
@@ -34,12 +35,6 @@ const ScoreBreakdown = () => {
 
   const [selectedScore, setSelectedScore] = useState(scores[0]);
 
-  const getScoreColor = (score) => {
-    if (score <= 24) return "#ef4444"; // Red
-    if (score <= 70) return "#f97316"; // Orange
-    return "#22c55e"; // Green
-  };
-
   const pathColor = selectedScore.comingSoon
     ? "#d1d5db"
     : getScoreColor(selectedScore.score);
@@ -53,8 +48,15 @@ const ScoreBreakdown = () => {
           {scores.map((item) => (
             <div
               key={item.title}
-              onClick={() => !item.comingSoon && setSelectedScore(item)}
-              className={`relative p-4 rounded-lg text-black border transition duration-300 cursor-pointer
+              onClick={() => {
+                if (!item.comingSoon) {
+                  setSelectedScore(item);
+                  setSelectedBreakdown(item.title);
+                }
+              }}
+              className={`relative p-4 rounded-lg text-black border ${findBorderColor(
+                item.score
+              )} transition duration-300 cursor-pointer w-[85%] mx-auto
                 ${
                   selectedScore.title === item.title && !item.comingSoon
                     ? "bg-blue-200 font-semibold"
