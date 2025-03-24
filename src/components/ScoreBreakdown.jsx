@@ -59,7 +59,7 @@ const ScoreBreakdown = ({ selectedBreakdown, setSelectedBreakdown }) => {
               )} transition duration-300 cursor-pointer w-[85%] mx-auto
                 ${
                   selectedScore.title === item.title && !item.comingSoon
-                    ? "bg-blue-200 font-semibold"
+                    ? " bg-gradient-to-r from-[#e3ffff] to-[#e6e4ef] font-semibold"
                     : "bg-white hover:bg-gray-100"
                 }
                 ${item.comingSoon ? "cursor-default pointer-events-none" : ""}

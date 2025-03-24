@@ -48,9 +48,9 @@ const Contact = ({
     return <div className="p-4">No data available for Contacts.</div>;
 
   return (
-    <div className="p-6 text-gray-700">
+    <div className="text-gray-700  rounded-lg  border-gray-300">
       {/* Missing Data Section */}
-      <section className="bg-white rounded-md shadow mb-6">
+      <section className="bg-white rounded-md mb-6">
         <div className="flex justify-between items-center px-6 py-4">
           <h3 className="text-xl font-bold">Missing Data - Contacts</h3>
           <p

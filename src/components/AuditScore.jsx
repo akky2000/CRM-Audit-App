@@ -13,7 +13,7 @@ const AuditScore = () => {
       </h2>
 
       {/* Progress Bar Section */}
-      <div className="relative pt-2 w-full">
+      <div className="relative pt-2 w-[95%] mx-auto">
         {/* Score and additional text */}
         <div className="flex justify-between items-center mt-2">
           <p className="text-sm sm:text-base">0</p>
