@@ -193,13 +193,13 @@ const Company = ({
   return (
     <div className="report-details">
       {/* Missing Data Section */}
-      <section className="report-details__subSection">
-        <div className="report-details__section-header">
-          <h3 className="report-details__subtitle">
-            Missing Data - <h4 style={{ marginLeft: "4px" }}>Companies</h4>
+      <section className="mb-[30px] bg-white rounded-md">
+        <div className="flex justify-between items-center mb-2.5">
+          <h3 className="text-xl font-bold flex items-center p-[15px] text-black">
+            Missing Data - <h4 className="ml-1 text-black">Companies</h4>
           </h3>
           <button
-            className="report-details__toggle-button"
+            className="bg-inherit shadow-none text-black border-none rounded px-2.5 py-1 text-base cursor-pointer transition-colors duration-300"
             onClick={() => toggleSection("missingData")}
           >
             {isMissingDataExpanded ? (
@@ -207,13 +207,12 @@ const Company = ({
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="#333"
-                class="size-5"
-                style={{ height: "15px" }}
+                className="h-[15px]"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M9.47 6.47a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 1 1-1.06 1.06L10 8.06l-3.72 3.72a.75.75 0 0 1-1.06-1.06l4.25-4.25Z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 />
               </svg>
             ) : (
@@ -221,675 +220,281 @@ const Company = ({
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="#333"
-                class="size-5"
-                style={{ height: "15px" }}
+                className="h-[15px]"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 />
               </svg>
             )}
           </button>
         </div>
+
         {isMissingDataExpanded && (
           <>
+            {/* First Block: Fix this first */}
             <div>
-              <div className="report-details__missing_title">
+              <div className="flex my-4 mx-10 font-semibold text-lg text-black">
                 <p>Fix this first - fast!</p>
               </div>
-              <div className="report-details__card">
-                <div
-                  className={`report-details__data-div ${
-                    firstRowSelectedItem === "without_name"
-                      ? "selected-item"
-                      : ""
-                  }  ${getBorderColor(missing_data?.without_name?.risk)}`}
-                  onClick={() => {
-                    setfirstRowSelectedItem("without_name");
-                    handleFirstDataPointChange("name");
-                  }}
-                >
-                  <div className="report-details__data-item">
-                    <p className="report-details__data-div-heading">
-                      <p>Companies without Name</p>
-                      <Tooltip tooltipText="These company records do not have a name, making it difficult to identify them.">
-                        <img
-                          className="info-image"
-                          src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
-                        />
-                      </Tooltip>
-                      <img
-                        src={findRiskImage(missing_data?.without_name?.risk)}
-                      ></img>
-                    </p>
-                    <p className="report-details__data-div-score">
-                      <strong>{missing_data?.without_name?.percent}%</strong>
-                    </p>
-                    <p className="report-details__data-div-total">
-                      {missing_data?.without_name?.count.toLocaleString()}{" "}
-                      <span>/ {total_companies.toLocaleString()}</span>
-                    </p>
-                  </div>
-                </div>
 
-                <div
-                  className={`report-details__data-div ${
-                    firstRowSelectedItem === "without_domain"
-                      ? "selected-item"
-                      : ""
-                  }  ${getBorderColor(missing_data?.without_domain?.risk)}`}
-                  onClick={() => {
-                    setfirstRowSelectedItem("without_domain");
-                    handleFirstDataPointChange("domain");
-                  }}
-                >
-                  <div className="report-details__data-item">
-                    <p className="report-details__data-div-heading">
-                      <p> Companies without Domain</p>
-                      <Tooltip tooltipText="These companies do not have a domain associated, which limits online identification and outreach.">
+              <div className="mb-4 pb-4 flex justify-evenly flex-wrap">
+                {/* Repeatable card items */}
+                {[
+                  {
+                    key: "without_name",
+                    label: "Companies without Name",
+                    tooltip:
+                      "These company records do not have a name, making it difficult to identify them.",
+                    field: "name",
+                  },
+                  {
+                    key: "without_domain",
+                    label: "Companies without Domain",
+                    tooltip:
+                      "These companies do not have a domain associated, which limits online identification and outreach.",
+                    field: "domain",
+                  },
+                  {
+                    key: "without_associated_contacts",
+                    label: "Companies without Associated Contact",
+                    tooltip:
+                      "These companies do not have any associated contacts, which means no individuals are linked to them.",
+                    field: "num_associated_contacts",
+                  },
+                  {
+                    key: "without_owner",
+                    label: "Companies without an Owner",
+                    tooltip:
+                      "These companies do not have an assigned owner, meaning no specific user is responsible for managing them.",
+                    field: "hubspot_owner_id",
+                  },
+                ].map(({ key, label, tooltip, field }) => (
+                  <div
+                    key={key}
+                    className={`bg-white border border-gray-200 rounded-lg h-36 text-left w-[16vw] transition duration-300 ease-in-out shadow cursor-pointer ${
+                      firstRowSelectedItem === key
+                        ? "bg-gradient-to-r from-[#e3ffff] to-[#e6e4ef]"
+                        : "bg-white"
+                    } ${getBorderColor(missing_data?.[key]?.risk)}`}
+                    onClick={() => {
+                      setfirstRowSelectedItem(key);
+                      handleFirstDataPointChange(field);
+                    }}
+                  >
+                    <div className="flex flex-col items-start p-0 whitespace-nowrap relative">
+                      <div className="text-sm m-0 py-2 w-full h-[50px] flex items-center gap-2 px-2">
+                        <p className="w-[14vw] mt-[6px]">{label}</p>
+                        <Tooltip tooltipText={tooltip}>
+                          <img
+                            className="h-4"
+                            src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
+                            alt="Info"
+                          />
+                        </Tooltip>
                         <img
-                          className="info-image"
-                          src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
+                          className="absolute bottom-4 right-4 h-4"
+                          src={findRiskImage(missing_data[key]?.risk)}
+                          alt={missing_data[key]?.risk}
                         />
-                      </Tooltip>
-                      <img
-                        src={findRiskImage(missing_data?.without_domain?.risk)}
-                      ></img>
-                    </p>
-                    <p className="report-details__data-div-score">
-                      <strong>{missing_data?.without_domain?.percent}%</strong>
-                    </p>
-                    <p className="report-details__data-div-total">
-                      {missing_data?.without_domain?.count.toLocaleString()}{" "}
-                      <span>/ {total_companies.toLocaleString()}</span>
-                    </p>
+                      </div>
+                      <p className="text-black font-bold text-2xl leading-8 mt-3 ml-2">
+                        <strong>{missing_data?.[key]?.percent}%</strong>
+                      </p>
+                      <p className="text-gray-600 text-sm ml-2">
+                        {missing_data?.[key]?.count.toLocaleString()}{" "}
+                        <span>/ {total_companies.toLocaleString()}</span>
+                      </p>
+                    </div>
                   </div>
-                </div>
-
-                <div
-                  className={`report-details__data-div ${
-                    firstRowSelectedItem === "without_associated_contacts"
-                      ? "selected-item"
-                      : ""
-                  }  ${getBorderColor(
-                    missing_data?.without_associated_contacts?.risk
-                  )}`}
-                  onClick={() => {
-                    setfirstRowSelectedItem("without_associated_contacts");
-                    handleFirstDataPointChange("num_associated_contacts");
-                  }}
-                >
-                  <div className="report-details__data-item">
-                    <p className="report-details__data-div-heading">
-                      <p>Companies without Associated Contact</p>
-                      <Tooltip tooltipText="These companies do not have any associated contacts, which means no individuals are linked to them.">
-                        <img
-                          className="info-image"
-                          src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
-                        />
-                      </Tooltip>
-                      <img
-                        src={findRiskImage(
-                          missing_data?.without_associated_contacts?.risk
-                        )}
-                      ></img>
-                    </p>
-                    <p className="report-details__data-div-score">
-                      <strong>
-                        {missing_data?.without_associated_contacts?.percent}%
-                      </strong>
-                    </p>
-                    <p className="report-details__data-div-total">
-                      {missing_data?.without_associated_contacts?.count.toLocaleString()}{" "}
-                      <span>/ {total_companies.toLocaleString()}</span>
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className={`report-details__data-div ${
-                    firstRowSelectedItem === "without_owner"
-                      ? "selected-item"
-                      : ""
-                  }  ${getBorderColor(missing_data?.without_owner?.risk)}`}
-                  onClick={() => {
-                    setfirstRowSelectedItem("without_owner");
-                    handleFirstDataPointChange("hubspot_owner_id");
-                  }}
-                >
-                  <div className="report-details__data-item">
-                    <p className="report-details__data-div-heading">
-                      <p>Companies without an Owner</p>
-                      <Tooltip tooltipText="These companies do not have an assigned owner, meaning no specific user is responsible for managing them.">
-                        <img
-                          className="info-image"
-                          src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
-                        />
-                      </Tooltip>
-                      <img
-                        src={findRiskImage(missing_data?.without_owner?.risk)}
-                      ></img>
-                    </p>
-                    <p className="report-details__data-div-score">
-                      <strong>{missing_data?.without_owner?.percent}%</strong>
-                    </p>
-                    <p className="report-details__data-div-total">
-                      {missing_data?.without_owner?.count.toLocaleString()}{" "}
-                      <span>/ {total_companies.toLocaleString()}</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div className="audit-report__chart-container">
-                  <div className="audit-report__chart">
-                    <BarChart
-                      graphData={graphData}
-                      dataPoint={firstDatapoint}
-                      missingData={missing_data}
-                      inferenceKey={firstRowSelectedItem}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className="report-details__missing_title">
-                <p>Must-Have</p>
-              </div>
-              <div className="report-details__card">
-                <div
-                  className={`report-details__data-div ${
-                    secondRowSelectedItem === "without_associated_deals"
-                      ? "selected-item"
-                      : ""
-                  }  ${getBorderColor(
-                    missing_data?.without_associated_deals?.risk
-                  )}`}
-                  onClick={() => {
-                    setSecondRowSelectedItem("without_associated_deals");
-                    handleSecondDataPointChange("num_associated_deals");
-                  }}
-                >
-                  <div className="report-details__data-item">
-                    <p className="report-details__data-div-heading">
-                      <p>Companies without Deals (Opportunity/Customer)</p>
-                      <Tooltip tooltipText="These companies are not associated with any deals, indicating no recorded business opportunities linked to them.">
-                        <img
-                          className="info-image"
-                          src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
-                        />
-                      </Tooltip>
-                      <img
-                        src={findRiskImage(
-                          missing_data?.without_associated_deals?.risk
-                        )}
-                      ></img>
-                    </p>
-                    <p className="report-details__data-div-score">
-                      <strong>
-                        {missing_data?.without_associated_deals?.percent}%
-                      </strong>
-                    </p>
-                    <p className="report-details__data-div-total">
-                      {missing_data?.without_associated_deals?.count.toLocaleString()}{" "}
-                      <span>/ {total_companies.toLocaleString()}</span>
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className={`report-details__data-div ${
-                    secondRowSelectedItem === "without_industry"
-                      ? "selected-item"
-                      : ""
-                  }  ${getBorderColor(missing_data?.without_industry?.risk)}`}
-                  onClick={() => {
-                    setSecondRowSelectedItem("without_industry");
-                    handleSecondDataPointChange("industry");
-                  }}
-                >
-                  <div className="report-details__data-item">
-                    <p className="report-details__data-div-heading">
-                      <p> Companies without Industry</p>
-                      <Tooltip tooltipText="These companies do not have an industry classification, which is useful for segmentation and targeting.">
-                        <img
-                          className="info-image"
-                          src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
-                        />
-                      </Tooltip>
-                      <img
-                        src={findRiskImage(
-                          missing_data?.without_industry?.risk
-                        )}
-                      ></img>
-                    </p>
-                    <p className="report-details__data-div-score">
-                      <strong>
-                        {missing_data?.without_industry?.percent}%
-                      </strong>
-                    </p>
-                    <p className="report-details__data-div-total">
-                      {missing_data?.without_industry?.count.toLocaleString()}{" "}
-                      <span>/ {total_companies.toLocaleString()}</span>
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className={`report-details__data-div ${
-                    secondRowSelectedItem === "without_lifecycle_stage"
-                      ? "selected-item"
-                      : ""
-                  }  ${getBorderColor(
-                    missing_data?.without_lifecycle_stage?.risk
-                  )}`}
-                  onClick={() => {
-                    setSecondRowSelectedItem("without_lifecycle_stage");
-                    handleSecondDataPointChange("lifecyclestage");
-                  }}
-                >
-                  <div className="report-details__data-item">
-                    <p className="report-details__data-div-heading">
-                      <p>Companies without Lifecycle Stage</p>
-                      <Tooltip tooltipText="These companies do not have a lifecycle stage assigned, which is used to track their journey in the business pipeline.">
-                        <img
-                          className="info-image"
-                          src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
-                        />
-                      </Tooltip>
-                      <img
-                        src={findRiskImage(
-                          missing_data?.without_lifecycle_stage?.risk
-                        )}
-                      ></img>
-                    </p>
-                    <p className="report-details__data-div-score">
-                      <strong>
-                        {missing_data?.without_lifecycle_stage?.percent}%
-                      </strong>
-                    </p>
-                    <p className="report-details__data-div-total">
-                      {missing_data?.without_lifecycle_stage?.count.toLocaleString()}{" "}
-                      <span>/ {total_companies.toLocaleString()}</span>
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className={`report-details__data-div ${
-                    secondRowSelectedItem === "without_country_region"
-                      ? "selected-item"
-                      : ""
-                  }  ${getBorderColor(
-                    missing_data?.without_country_region?.risk
-                  )}`}
-                  onClick={() => {
-                    setSecondRowSelectedItem("without_country_region");
-                    handleSecondDataPointChange("country");
-                  }}
-                >
-                  <div className="report-details__data-item">
-                    <p className="report-details__data-div-heading">
-                      <p>Companies without Country/Region</p>
-                      <Tooltip tooltipText="These companies do not have a country or region specified, which makes geographic-based analysis and segmentation difficult.">
-                        <img
-                          className="info-image"
-                          src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
-                        />
-                      </Tooltip>
-                      <img
-                        src={findRiskImage(
-                          missing_data?.without_country_region?.risk
-                        )}
-                      ></img>
-                    </p>
-                    <p className="report-details__data-div-score">
-                      <strong>
-                        {missing_data?.without_country_region?.percent}%
-                      </strong>
-                    </p>
-                    <p className="report-details__data-div-total">
-                      {missing_data?.without_country_region?.count.toLocaleString()}{" "}
-                      <span>/ {total_companies.toLocaleString()}</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div className="audit-report__chart-container">
-                  <div className="audit-report__chart">
-                    <BarChart
-                      graphData={graphData}
-                      dataPoint={secondDataPoint}
-                      missingData={missing_data}
-                      inferenceKey={secondRowSelectedItem}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className="report-details__missing_title">
-                <p>Good-to-Have</p>
-              </div>
-              <div className="report-details__card">
-                <div
-                  className={`report-details__data-div ${
-                    thirdRowSelectedItem === "without_num_of_employees"
-                      ? "selected-item"
-                      : ""
-                  }  ${getBorderColor(
-                    missing_data?.without_num_of_employees?.risk
-                  )}`}
-                  onClick={() => {
-                    setThirdRowSelectedItem("without_num_of_employees");
-                    handleThirdDataPointChange("numberofemployees");
-                  }}
-                >
-                  <div className="report-details__data-item">
-                    <p className="report-details__data-div-heading">
-                      <p>Companies without Number of Employees</p>
-                      <Tooltip tooltipText="These companies do not have the number of employees recorded, which can be a key indicator of company size.">
-                        <img
-                          className="info-image"
-                          src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
-                        />
-                      </Tooltip>
-                      <img
-                        src={findRiskImage(
-                          missing_data?.without_num_of_employees?.risk
-                        )}
-                      ></img>
-                    </p>
-                    <p className="report-details__data-div-score">
-                      <strong>
-                        {missing_data?.without_num_of_employees?.percent}%
-                      </strong>
-                    </p>
-                    <p className="report-details__data-div-total">
-                      {missing_data?.without_num_of_employees?.count.toLocaleString()}{" "}
-                      <span>/ {total_companies.toLocaleString()}</span>
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className={`report-details__data-div ${
-                    thirdRowSelectedItem === "without_revenue"
-                      ? "selected-item"
-                      : ""
-                  }  ${getBorderColor(missing_data?.without_revenue?.risk)}`}
-                  onClick={() => {
-                    setThirdRowSelectedItem("without_revenue");
-                    handleThirdDataPointChange("annualrevenue");
-                  }}
-                >
-                  <div className="report-details__data-item">
-                    <p className="report-details__data-div-heading">
-                      <p> Companies without Revenue</p>
-                      <Tooltip tooltipText="These companies do not have revenue information recorded, which helps in understanding their financial scale.">
-                        <img
-                          className="info-image"
-                          src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
-                        />
-                      </Tooltip>
-                      <img
-                        src={findRiskImage(missing_data?.without_revenue?.risk)}
-                      ></img>
-                    </p>
-                    <p className="report-details__data-div-score">
-                      <strong>{missing_data?.without_revenue?.percent}%</strong>
-                    </p>
-                    <p className="report-details__data-div-total">
-                      {missing_data?.without_revenue?.count.toLocaleString()}{" "}
-                      <span>/ {total_companies.toLocaleString()}</span>
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className={`report-details__data-div ${
-                    thirdRowSelectedItem === "without_linkedin_url"
-                      ? "selected-item"
-                      : ""
-                  }  ${getBorderColor(
-                    missing_data?.without_linkedin_url?.risk
-                  )}`}
-                  onClick={() => {
-                    setThirdRowSelectedItem("without_linkedin_url");
-                    handleThirdDataPointChange("linkedin_company_page");
-                  }}
-                >
-                  <div className="report-details__data-item">
-                    <p className="report-details__data-div-heading">
-                      <p>Companies without LinkedIn Page URL</p>
-                      <Tooltip tooltipText="These companies do not have a LinkedIn page URL recorded, which can limit research and networking opportunities.">
-                        <img
-                          className="info-image"
-                          src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
-                        />
-                      </Tooltip>
-                      <img
-                        src={findRiskImage(
-                          missing_data?.without_linkedin_url?.risk
-                        )}
-                      ></img>
-                    </p>
-                    <p className="report-details__data-div-score">
-                      <strong>
-                        {missing_data?.without_linkedin_url?.percent}%
-                      </strong>
-                    </p>
-                    <p className="report-details__data-div-total">
-                      {missing_data?.without_linkedin_url?.count.toLocaleString()}{" "}
-                      <span>/ {total_companies.toLocaleString()}</span>
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className={`report-details__data-div ${
-                    thirdRowSelectedItem === "without_phone_number"
-                      ? "selected-item"
-                      : ""
-                  }  ${getBorderColor(
-                    missing_data?.without_phone_number?.risk
-                  )}`}
-                  onClick={() => {
-                    setThirdRowSelectedItem("without_phone_number");
-                    handleThirdDataPointChange("phone");
-                  }}
-                >
-                  <div className="report-details__data-item">
-                    <p className="report-details__data-div-heading">
-                      <p>Companies without Phone No</p>
-                      <Tooltip tooltipText="These companies do not have a phone number recorded, which can restrict direct communication.">
-                        <img
-                          className="info-image"
-                          src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
-                        />
-                      </Tooltip>
-                      <img
-                        src={findRiskImage(
-                          missing_data?.without_phone_number?.risk
-                        )}
-                      ></img>
-                    </p>
-                    <p className="report-details__data-div-score">
-                      <strong>
-                        {missing_data?.without_phone_number?.percent}%
-                      </strong>
-                    </p>
-                    <p className="report-details__data-div-total">
-                      {missing_data?.without_phone_number?.count.toLocaleString()}{" "}
-                      <span>/ {total_companies.toLocaleString()}</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div className="audit-report__chart-container">
-                  <div className="audit-report__chart">
-                    <BarChart
-                      graphData={graphData}
-                      dataPoint={thirdDataPoint}
-                      missingData={missing_data}
-                      inferenceKey={thirdRowSelectedItem}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </>
-        )}
-      </section>
-
-      <section className="report-details__subSection">
-        <div className="report-details__section-header">
-          <h3 className="report-details__subtitle">Consider Deleting</h3>
-          <button
-            className="report-details__toggle-button"
-            onClick={() => toggleSection("deletingData")}
-          >
-            {isDeletingDataExpanded ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="#333"
-                class="size-5"
-                style={{ height: "15px" }}
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M9.47 6.47a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 1 1-1.06 1.06L10 8.06l-3.72 3.72a.75.75 0 0 1-1.06-1.06l4.25-4.25Z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="#333"
-                class="size-5"
-                style={{ height: "15px" }}
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            )}
-          </button>
-        </div>
-        {isDeletingDataExpanded && (
-          <>
-            <div className="report-details__card">
-              <div
-                className={`report-details__duplicate-data-div  ${getBorderColor(
-                  junk_data?.no_activity_in_last_180_days?.risk
-                )} ${
-                  lastDataPoint === "no_activity_in_last_180_days"
-                    ? "selected-item"
-                    : ""
-                }  `}
-                onClick={() => {
-                  setLastDataPoint("no_activity_in_last_180_days");
-                }}
-              >
-                <div className="report-details__data-item">
-                  <p className="report-details__data-div-heading">
-                    <p style={{ width: "inherit" }}>
-                      Companies have no activity in the last 180 days
-                    </p>
-                    <Tooltip tooltipText="These companies have not had any recorded interactions or updates in the past 180 days.">
-                      <img
-                        className="info-image"
-                        src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
-                      />
-                    </Tooltip>
-                    <img
-                      src={findRiskImage(
-                        junk_data?.no_activity_in_last_180_days?.risk
-                      )}
-                    ></img>
-                  </p>
-                  <p className="report-details__data-div-score">
-                    <strong>
-                      {junk_data?.no_activity_in_last_180_days?.count?.toLocaleString()}{" "}
-                      /
-                    </strong>
-                    <span
-                      style={{
-                        fontSize: "large",
-                        fontWeight: "100",
-                        color: "#333",
-                      }}
-                    >
-                      {total_companies?.toLocaleString()}
-                    </span>
-                  </p>
-                </div>
+                ))}
               </div>
 
-              <div
-                className={`report-details__duplicate-data-div  ${getBorderColor(
-                  junk_data?.without_name_and_domain?.risk
-                )}  ${
-                  lastDataPoint === "without_name_and_domain"
-                    ? "selected-item"
-                    : ""
-                }  `}
-                onClick={() => {
-                  setLastDataPoint("without_name_and_domain");
-                }}
-              >
-                <div className="report-details__data-item">
-                  <p className="report-details__data-div-heading">
-                    <p style={{ width: "inherit" }}>
-                      Companies without name and domain
-                    </p>
-                    <Tooltip tooltipText="These companies are missing both a name and a domain, making it nearly impossible to identify them.">
-                      <img
-                        className="info-image"
-                        src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
-                      />
-                    </Tooltip>
-                    <img
-                      src={findRiskImage(
-                        junk_data?.without_name_and_domain?.risk
-                      )}
-                    ></img>
-                  </p>
-                  <p className="report-details__data-div-score">
-                    <strong>
-                      {junk_data?.without_name_and_domain?.count?.toLocaleString()}{" "}
-                      /
-                    </strong>
-                    <span
-                      style={{
-                        fontSize: "large",
-                        fontWeight: "100",
-                        color: "#333",
-                      }}
-                    >
-                      {total_companies?.toLocaleString()}
-                    </span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className="audit-report__chart-container">
-                <div className="audit-report__chart">
+              <div className="flex justify-center">
+                <div className="h-[27rem] flex justify-start m-4 mb-[8rem]">
                   <BarChart
                     graphData={graphData}
-                    dataPoint={lastDataPoint}
-                    missingData={junk_data}
-                    inferenceKey={lastDataPoint}
+                    dataPoint={firstDatapoint}
+                    missingData={missing_data}
+                    inferenceKey={firstRowSelectedItem}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* 🟡 Repeat for "Must-Have" and "Good-to-Have" the same way */}
+            {/* Must-Have Section */}
+            <div>
+              <div className="flex my-4 mx-10 font-semibold text-lg text-black">
+                <p>Must-Have</p>
+              </div>
+
+              <div className="mb-4 pb-4 flex justify-evenly flex-wrap">
+                {[
+                  {
+                    key: "without_associated_deals",
+                    label: "Companies without Deals (Opportunity/Customer)",
+                    tooltip:
+                      "These companies are not associated with any deals, indicating no recorded business opportunities linked to them.",
+                    field: "num_associated_deals",
+                  },
+                  {
+                    key: "without_industry",
+                    label: "Companies without Industry",
+                    tooltip:
+                      "These companies do not have an industry classification, which is useful for segmentation and targeting.",
+                    field: "industry",
+                  },
+                  {
+                    key: "without_lifecycle_stage",
+                    label: "Companies without Lifecycle Stage",
+                    tooltip:
+                      "These companies do not have a lifecycle stage assigned, which is used to track their journey in the business pipeline.",
+                    field: "lifecyclestage",
+                  },
+                  {
+                    key: "without_country_region",
+                    label: "Companies without Country/Region",
+                    tooltip:
+                      "These companies do not have a country or region specified, which makes geographic-based analysis and segmentation difficult.",
+                    field: "country",
+                  },
+                ].map(({ key, label, tooltip, field }) => (
+                  <div
+                    key={key}
+                    className={`bg-white border border-gray-200 rounded-lg h-36 text-left w-[16vw] transition duration-300 ease-in-out shadow cursor-pointer ${
+                      secondRowSelectedItem === key
+                        ? "bg-gradient-to-r from-[#e3ffff] to-[#e6e4ef]"
+                        : "bg-white"
+                    } ${getBorderColor(missing_data?.[key]?.risk)}`}
+                    onClick={() => {
+                      setSecondRowSelectedItem(key);
+                      handleSecondDataPointChange(field);
+                    }}
+                  >
+                    <div className="flex flex-col items-start p-0 whitespace-nowrap relative">
+                      <div className="text-sm m-0 py-2 w-full h-[50px] flex items-center gap-2 px-2">
+                        <p className="w-[14vw] mt-[6px]">{label}</p>
+                        <Tooltip tooltipText={tooltip}>
+                          <img
+                            className="h-4"
+                            src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
+                          />
+                        </Tooltip>
+                        <img
+                          className="absolute bottom-4 right-4 h-4"
+                          src={findRiskImage(missing_data[key]?.risk)}
+                          alt={missing_data[key]?.risk}
+                        />
+                      </div>
+                      <p className="text-black font-bold text-2xl leading-8 mt-3 ml-2">
+                        <strong>{missing_data?.[key]?.percent}%</strong>
+                      </p>
+                      <p className="text-gray-600 text-sm ml-2">
+                        {missing_data?.[key]?.count.toLocaleString()}{" "}
+                        <span>/ {total_companies.toLocaleString()}</span>
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex justify-center">
+                <div className="h-[27rem] flex justify-start m-4 mb-[8rem]">
+                  <BarChart
+                    graphData={graphData}
+                    dataPoint={secondDataPoint}
+                    missingData={missing_data}
+                    inferenceKey={secondRowSelectedItem}
+                  />
+                </div>
+              </div>
+            </div>
+            {/* Good-to-Have Section */}
+            <div>
+              <div className="flex my-4 mx-10 font-semibold text-lg text-black">
+                <p>Good-to-Have</p>
+              </div>
+
+              <div className="mb-4 pb-4 flex justify-evenly flex-wrap">
+                {[
+                  {
+                    key: "without_num_of_employees",
+                    label: "Companies without Number of Employees",
+                    tooltip:
+                      "These companies do not have the number of employees recorded, which can be a key indicator of company size.",
+                    field: "numberofemployees",
+                  },
+                  {
+                    key: "without_revenue",
+                    label: "Companies without Revenue",
+                    tooltip:
+                      "These companies do not have revenue information recorded, which helps in understanding their financial scale.",
+                    field: "annualrevenue",
+                  },
+                  {
+                    key: "without_linkedin_url",
+                    label: "Companies without LinkedIn Page URL",
+                    tooltip:
+                      "These companies do not have a LinkedIn page URL recorded, which can limit research and networking opportunities.",
+                    field: "linkedin_company_page",
+                  },
+                  {
+                    key: "without_phone_number",
+                    label: "Companies without Phone No",
+                    tooltip:
+                      "These companies do not have a phone number recorded, which can restrict direct communication.",
+                    field: "phone",
+                  },
+                ].map(({ key, label, tooltip, field }) => (
+                  <div
+                    key={key}
+                    className={`bg-white border border-gray-200 rounded-lg h-36 text-left w-[16vw] transition duration-300 ease-in-out shadow cursor-pointer ${
+                      thirdRowSelectedItem === key
+                        ? "bg-gradient-to-r from-[#e3ffff] to-[#e6e4ef]"
+                        : "bg-white"
+                    } ${getBorderColor(missing_data?.[key]?.risk)}`}
+                    onClick={() => {
+                      setThirdRowSelectedItem(key);
+                      handleThirdDataPointChange(field);
+                    }}
+                  >
+                    <div className="flex flex-col items-start p-0 whitespace-nowrap relative">
+                      <div className="text-sm m-0 py-2 w-full h-[50px] flex items-center gap-2 px-2">
+                        <p className="w-[14vw] mt-[6px]">{label}</p>
+                        <Tooltip tooltipText={tooltip}>
+                          <img
+                            className="h-4"
+                            src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
+                          />
+                        </Tooltip>
+                        <img
+                          className="absolute bottom-4 right-4 h-4"
+                          src={findRiskImage(missing_data[key]?.risk)}
+                          alt={missing_data[key]?.risk}
+                        />
+                      </div>
+                      <p className="text-black font-bold text-2xl leading-8 mt-3 ml-2">
+                        <strong>{missing_data?.[key]?.percent}%</strong>
+                      </p>
+                      <p className="text-gray-600 text-sm ml-2">
+                        {missing_data?.[key]?.count.toLocaleString()}{" "}
+                        <span>/ {total_companies.toLocaleString()}</span>
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex justify-center">
+                <div className="h-[27rem] flex justify-start m-4 mb-[8rem]">
+                  <BarChart
+                    graphData={graphData}
+                    dataPoint={thirdDataPoint}
+                    missingData={missing_data}
+                    inferenceKey={thirdRowSelectedItem}
                   />
                 </div>
               </div>
@@ -897,20 +502,166 @@ const Company = ({
           </>
         )}
       </section>
-      <section className={` ${page === "past" ? "blur-action-section" : ""} `}>
+
+      <section className="mb-[30px] bg-white rounded-md my-5">
+        <div className="flex justify-between items-center mb-2.5">
+          <h3 className="text-sm font-bold flex items-center p-[15px] text-black">
+            Consider Deleting
+          </h3>
+          <button
+            className="bg-inherit shadow-none text-black border-none rounded px-2.5 py-1 text-base cursor-pointer transition-colors duration-300"
+            onClick={() => toggleSection("deletingData")}
+          >
+            {isDeletingDataExpanded ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="#333"
+                className="h-[15px]"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M9.47 6.47a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 1 1-1.06 1.06L10 8.06l-3.72 3.72a.75.75 0 0 1-1.06-1.06l4.25-4.25Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="#333"
+                className="h-[15px]"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            )}
+          </button>
+        </div>
+
+        {isDeletingDataExpanded && (
+          <>
+            <div className="mb-4 pb-4 flex justify-evenly flex-wrap">
+              {/* Card: No activity in last 180 days */}
+              <div
+                className={`bg-white rounded-lg text-center px-4 py-3 w-[34vw] transition duration-300 ease-in-out cursor-pointer ${
+                  lastDataPoint === "no_activity_in_last_180_days"
+                    ? "bg-gradient-to-r from-[#e3ffff] to-[#e6e4ef]"
+                    : "bg-white"
+                } ${getBorderColor(
+                  junk_data?.no_activity_in_last_180_days?.risk
+                )}`}
+                onClick={() => setLastDataPoint("no_activity_in_last_180_days")}
+              >
+                <div className="flex flex-col items-start p-0 whitespace-nowrap relative">
+                  <div className="text-sm m-0 py-2 w-full h-[50px] flex items-center gap-2 px-2">
+                    <p className="w-full mt-[6px]">
+                      Companies have no activity in the last 180 days
+                    </p>
+                    <Tooltip tooltipText="These companies have not had any recorded interactions or updates in the past 180 days.">
+                      <img
+                        className="h-4"
+                        src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
+                      />
+                    </Tooltip>
+                    <img
+                      className="absolute bottom-4 right-4 h-4"
+                      src={findRiskImage(
+                        junk_data?.no_activity_in_last_180_days?.risk
+                      )}
+                      alt={junk_data?.no_activity_in_last_180_days?.risk}
+                    />
+                  </div>
+                  <p className="text-black font-bold text-2xl leading-8 mt-3 ml-2">
+                    <strong>
+                      {junk_data?.no_activity_in_last_180_days?.count?.toLocaleString()}{" "}
+                      /
+                    </strong>
+                    <span className="text-base font-light text-gray-800">
+                      {total_companies?.toLocaleString()}
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              {/* Card: Without name and domain */}
+              <div
+                className={`bg-white rounded-lg text-center px-4 py-3 w-[34vw] transition duration-300 ease-in-out cursor-pointer ${
+                  lastDataPoint === "without_name_and_domain"
+                    ? "bg-gradient-to-r from-[#e3ffff] to-[#e6e4ef]"
+                    : "bg-white"
+                } ${getBorderColor(junk_data?.without_name_and_domain?.risk)}`}
+                onClick={() => setLastDataPoint("without_name_and_domain")}
+              >
+                <div className="flex flex-col items-start p-0 whitespace-nowrap relative">
+                  <div className="text-sm m-0 py-2 w-full h-[50px] flex items-center gap-2 px-2">
+                    <p className="w-full mt-[6px]">
+                      Companies without name and domain
+                    </p>
+                    <Tooltip tooltipText="These companies are missing both a name and a domain, making it nearly impossible to identify them.">
+                      <img
+                        className="h-4"
+                        src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
+                      />
+                    </Tooltip>
+                    <img
+                      className="absolute bottom-4 right-4 h-4"
+                      src={findRiskImage(
+                        junk_data?.without_name_and_domain?.risk
+                      )}
+                      alt={junk_data?.without_name_and_domain?.risk}
+                    />
+                  </div>
+                  <p className="text-black font-bold text-2xl leading-8 mt-3 ml-2">
+                    <strong>
+                      {junk_data?.without_name_and_domain?.count?.toLocaleString()}{" "}
+                      /
+                    </strong>
+                    <span className="text-base font-light text-gray-800">
+                      {total_companies?.toLocaleString()}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-center">
+              <div className="h-[27rem] flex justify-start m-4 mb-[8rem]">
+                <BarChart
+                  graphData={graphData}
+                  dataPoint={lastDataPoint}
+                  missingData={junk_data}
+                  inferenceKey={lastDataPoint}
+                />
+              </div>
+            </div>
+          </>
+        )}
+      </section>
+
+      <section
+        className={`${
+          page === "past" ? "blur-sm pointer-events-none relative" : ""
+        }`}
+      >
         {page === "past" && (
-          <div className="past-overlay-message">
+          <div className="absolute inset-0 bg-white/80 flex items-center justify-center text-lg font-semibold text-gray-800 z-10">
             Can't take action in past report
           </div>
         )}
+
         <div
-          className="report-details__take-action report-details__subSection"
+          className="bg-white rounded-md my-5 px-6 py-5 max-w-full"
           id="take_action"
         >
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <h4 className="report-details__action-title">Take Bulk Action</h4>
+          <div className="flex justify-between items-center mb-4">
+            <h4 className="text-black font-semibold text-lg mb-2">
+              Take Bulk Action
+            </h4>
             <button
-              className="overall_audit_action"
               onClick={() =>
                 document
                   .getElementById("overall_audit_section")
@@ -920,343 +671,164 @@ const Company = ({
               Move to Top ↑
             </button>
           </div>
-          <div className="report-details__action-group">
-            <div className="report-details__list">
-              <div className="report-details__checkbox-group">
-                <h5>Fix this first - fast!</h5>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={activeListSelections.group1.companies_without_name}
-                    onChange={(e) =>
-                      handleCheckboxChange(
-                        "group1",
-                        "companies_without_name",
-                        e.target.checked
-                      )
-                    }
-                  />
-                  Companies without Name
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={
-                      activeListSelections.group1.companies_without_domain
-                    }
-                    onChange={(e) =>
-                      handleCheckboxChange(
-                        "group1",
-                        "companies_without_domain",
-                        e.target.checked
-                      )
-                    }
-                  />
-                  Companies without Domain
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={
-                      activeListSelections.group1
-                        .companies_without_num_associated_con
-                    }
-                    onChange={(e) =>
-                      handleCheckboxChange(
-                        "group1",
-                        "companies_without_num_associated_con",
-                        e.target.checked
-                      )
-                    }
-                  />
-                  Companies without Associated Contact
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={
-                      activeListSelections.group1.companies_without_owner
-                    }
-                    onChange={(e) =>
-                      handleCheckboxChange(
-                        "group1",
-                        "companies_without_owner",
-                        e.target.checked
-                      )
-                    }
-                  />
-                  Companies without an Owner
-                </label>
 
-                <button
+          {/* Groups 1–3: Fix This, Must Fix, Good to Fix */}
+          <div className="mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-[95%] mx-auto">
+              {/* Fix This First */}
+              <div className="flex flex-col gap-3 shadow p-4 rounded-lg h-[16rem] relative w-full">
+                <h5 className="font-bold text-black text-base mb-1">
+                  Fix this first - fast!
+                </h5>
+                <CheckboxGroup
+                  groupKey="group1"
+                  options={[
+                    {
+                      label: "Companies without Name",
+                      value: "companies_without_name",
+                    },
+                    {
+                      label: "Companies without Domain",
+                      value: "companies_without_domain",
+                    },
+                    {
+                      label: "Companies without Associated Contact",
+                      value: "companies_without_num_associated_con",
+                    },
+                    {
+                      label: "Companies without an Owner",
+                      value: "companies_without_owner",
+                    },
+                  ]}
+                />
+                <ActionButton
                   onClick={() => handleCreateActiveList("group1")}
                   disabled={isGeneratingGraph}
-                  style={{
-                    cursor: isGeneratingGraph ? "not-allowed" : "pointer",
-                  }}
-                >
-                  Create Active List
-                </button>
+                  label="Create Active List"
+                />
               </div>
-              <div className="report-details__checkbox-group">
-                <h5>Must Fix</h5>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={
-                      activeListSelections.group2
-                        .companies_without_associated_deals
-                    }
-                    onChange={(e) =>
-                      handleCheckboxChange(
-                        "group2",
-                        "companies_without_associated_deals",
-                        e.target.checked
-                      )
-                    }
-                  />
-                  Companies without Deals
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={
-                      activeListSelections.group2.companies_without_industry
-                    }
-                    onChange={(e) =>
-                      handleCheckboxChange(
-                        "group2",
-                        "companies_without_industry",
-                        e.target.checked
-                      )
-                    }
-                  />
-                  Companies without Industry
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={
-                      activeListSelections.group2
-                        .companies_without_lifecycle_stage
-                    }
-                    onChange={(e) =>
-                      handleCheckboxChange(
-                        "group2",
-                        "companies_without_lifecycle_stage",
-                        e.target.checked
-                      )
-                    }
-                  />
-                  Companies without Lifecycle Stage
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={
-                      activeListSelections.group2
-                        .companies_without_country_region
-                    }
-                    onChange={(e) =>
-                      handleCheckboxChange(
-                        "group2",
-                        "companies_without_country_region",
-                        e.target.checked
-                      )
-                    }
-                  />
-                  Companies without Country/Region
-                </label>
 
-                <button
+              {/* Must Fix */}
+              <div className="flex flex-col gap-3 shadow p-4 rounded-lg h-[16rem] relative w-full">
+                <h5 className="font-bold text-black text-base mb-1">
+                  Must Fix
+                </h5>
+                <CheckboxGroup
+                  groupKey="group2"
+                  options={[
+                    {
+                      label: "Companies without Deals",
+                      value: "companies_without_associated_deals",
+                    },
+                    {
+                      label: "Companies without Industry",
+                      value: "companies_without_industry",
+                    },
+                    {
+                      label: "Companies without Lifecycle Stage",
+                      value: "companies_without_lifecycle_stage",
+                    },
+                    {
+                      label: "Companies without Country/Region",
+                      value: "companies_without_country_region",
+                    },
+                  ]}
+                />
+                <ActionButton
                   onClick={() => handleCreateActiveList("group2")}
                   disabled={isGeneratingGraph}
-                  style={{
-                    cursor: isGeneratingGraph ? "not-allowed" : "pointer",
-                  }}
-                >
-                  Create Active List
-                </button>
+                  label="Create Active List"
+                />
               </div>
-              <div className="report-details__checkbox-group">
-                <h5>Good to Fix</h5>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={
-                      activeListSelections.group3
-                        .companies_without_num_of_employee
-                    }
-                    onChange={(e) =>
-                      handleCheckboxChange(
-                        "group3",
-                        "companies_without_num_of_employee",
-                        e.target.checked
-                      )
-                    }
-                  />
-                  Companies without Number of Employees
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={
-                      activeListSelections.group3.companies_without_revenue
-                    }
-                    onChange={(e) =>
-                      handleCheckboxChange(
-                        "group3",
-                        "companies_without_revenue",
-                        e.target.checked
-                      )
-                    }
-                  />
-                  Companies without Revenue
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={
-                      activeListSelections.group3.companies_without_linkedin_url
-                    }
-                    onChange={(e) =>
-                      handleCheckboxChange(
-                        "group3",
-                        "companies_without_linkedin_url",
-                        e.target.checked
-                      )
-                    }
-                  />
-                  Companies without LinkedIn Page URL
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={
-                      activeListSelections.group3.companies_without_phone_num
-                    }
-                    onChange={(e) =>
-                      handleCheckboxChange(
-                        "group3",
-                        "companies_without_phone_num",
-                        e.target.checked
-                      )
-                    }
-                  />
-                  Companies without Phone No
-                </label>
 
-                <button
+              {/* Good to Fix */}
+              <div className="flex flex-col gap-3 shadow p-4 rounded-lg h-[16rem] relative w-full">
+                <h5 className="font-bold text-black text-base mb-1">
+                  Good to Fix
+                </h5>
+                <CheckboxGroup
+                  groupKey="group3"
+                  options={[
+                    {
+                      label: "Companies without Number of Employees",
+                      value: "companies_without_num_of_employee",
+                    },
+                    {
+                      label: "Companies without Revenue",
+                      value: "companies_without_revenue",
+                    },
+                    {
+                      label: "Companies without LinkedIn Page URL",
+                      value: "companies_without_linkedin_url",
+                    },
+                    {
+                      label: "Companies without Phone No",
+                      value: "companies_without_phone_num",
+                    },
+                  ]}
+                />
+                <ActionButton
                   onClick={() => handleCreateActiveList("group3")}
                   disabled={isGeneratingGraph}
-                  style={{
-                    cursor: isGeneratingGraph ? "not-allowed" : "pointer",
-                  }}
-                >
-                  Create Active List
-                </button>
+                  label="Create Active List"
+                />
               </div>
             </div>
           </div>
-          <div className="report-details__action-group">
-            <div className="report-details__list">
-              <div className="report-details__checkbox-group">
-                <h5>Consider Deleting</h5>
-                {/* <label>
-                  <input
-                    type="checkbox"
-                    checked={
-                      activeListSelections.group4
-                        .companies_without_activity_180_days
-                    }
-                    onChange={(e) =>
-                      handleCheckboxChange(
-                        'group4',
-                        'companies_without_activity_180_days',
-                        e.target.checked,
-                      )
-                    }
-                  />
-                  Company without activity in the last 180 days
-                </label> */}
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={
-                      activeListSelections.group4
-                        .companies_without_name_and_domain
-                    }
-                    onChange={(e) =>
-                      handleCheckboxChange(
-                        "group4",
-                        "companies_without_name_and_domain",
-                        e.target.checked
-                      )
-                    }
-                  />
-                  Companies without name and domain
-                </label>
 
-                <button
+          {/* Groups 4–5: Consider Deleting & Delete Junk */}
+          <div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-[95%] mx-auto">
+              {/* Consider Deleting */}
+              <div className="flex flex-col gap-3 shadow p-4 rounded-lg h-[16rem] relative w-full">
+                <h5 className="font-bold text-black text-base mb-1">
+                  Consider Deleting
+                </h5>
+                <CheckboxGroup
+                  groupKey="group4"
+                  options={[
+                    {
+                      label: "Companies without name and domain",
+                      value: "companies_without_name_and_domain",
+                    },
+                  ]}
+                />
+                <ActionButton
                   onClick={() => handleCreateActiveList("group4")}
                   disabled={isGeneratingGraph}
-                  style={{
-                    cursor: isGeneratingGraph ? "not-allowed" : "pointer",
-                  }}
-                >
-                  Create Active List
-                </button>
+                  label="Create Active List"
+                />
               </div>
-              <div className="report-details__checkbox-group">
-                <h5>Delete Junk</h5>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={
-                      activeListSelections.group5
-                        .companies_with_no_activity_in_last_180_days
-                    }
-                    onChange={(e) =>
-                      handleCheckboxChange(
-                        "group5",
-                        "companies_with_no_activity_in_last_180_days",
-                        e.target.checked
-                      )
-                    }
-                  />
-                  Company without activity in the last 180 days
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={
-                      activeListSelections.group5
-                        .companies_without_name_and_domain
-                    }
-                    onChange={(e) =>
-                      handleCheckboxChange(
-                        "group5",
-                        "companies_without_name_and_domain",
-                        e.target.checked
-                      )
-                    }
-                  />
-                  Companies without name and domain
-                </label>
-                <button
+
+              {/* Delete Junk */}
+              <div className="flex flex-col gap-3 shadow p-4 rounded-lg h-[16rem] relative w-full">
+                <h5 className="font-bold text-black text-base mb-1">
+                  Delete Junk
+                </h5>
+                <CheckboxGroup
+                  groupKey="group5"
+                  options={[
+                    {
+                      label: "Company without activity in the last 180 days",
+                      value: "companies_with_no_activity_in_last_180_days",
+                    },
+                    {
+                      label: "Companies without name and domain",
+                      value: "companies_without_name_and_domain",
+                    },
+                  ]}
+                />
+                <ActionButton
                   onClick={() => handleDeleteActiveList("group5")}
                   disabled={isGeneratingGraph}
-                  style={{
-                    cursor: isGeneratingGraph ? "not-allowed" : "pointer",
-                  }}
-                >
-                  Delete Junk
-                </button>
+                  label="Delete Junk"
+                />
               </div>
             </div>
           </div>
         </div>
       </section>
+
       <RequestModal
         isOpen={isRequestModalOpen}
         onClose={() => setIsRequestModalOpen(false)}
@@ -1267,5 +839,37 @@ const Company = ({
     </div>
   );
 };
+
+const CheckboxGroup = ({ groupKey, options }) => (
+  <>
+    {options.map(({ label, value }) => (
+      <label key={value} className="flex items-center gap-2 text-sm text-black">
+        <input
+          type="checkbox"
+          // checked={activeListSelections[groupKey]?.[value]}
+          onChange={(e) =>
+            handleCheckboxChange(groupKey, value, e.target.checked)
+          }
+          className=""
+        />
+        {label}
+      </label>
+    ))}
+  </>
+);
+
+const ActionButton = ({ onClick, disabled, label }) => (
+  <div className="absolute bottom-3 left-0 w-full flex justify-center">
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={`w-[90%] px-4 py-2 text-sm font-medium text-white transition-all ${
+        disabled ? "bg-gray-300 cursor-not-allowed" : ""
+      }`}
+    >
+      {label}
+    </button>
+  </div>
+);
 
 export default Company;
