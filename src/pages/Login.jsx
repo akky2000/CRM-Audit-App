@@ -40,31 +40,31 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gradient-to-r from-gray-100 to-purple-100 w-[100vw]">
-      <div className="bg-white shadow-lg w-96 p-7 text-center">
-        <div className="flex justify-center items-center gap-4 mb-4">
-          <img src={image1} alt="Image 1" className="w-7 h-9" />
-          <img src={boundarylogo} alt="Boundary Logo" className="w-20 h-9" />
+    <div className="flex justify-center items-center h-screen bg-gradient-to-r from-gray-100 to-purple-100 w-[100vw] ">
+      <div className="bg-white shadow-lg w-96 p-6 text-center ">
+        <div className="flex justify-center items-center gap-4 mb-10">
+          <img src={image1} alt="Image 1" className="w-7 h-9 mb-2" />
+          <img src={boundarylogo} alt="Boundary Logo" className="w-22 h-9 mb-2 "  />
         </div>
 
-        <h2 className="text-xl font-semibold text-black">Audit App | Sign In</h2>
+        <h2 className="text-xl font-semibold  text-black mb-16">Audit App | Sign In</h2>
 
-        <div className="mt-6 text-left">
+        <div className="mt-6 text-left ">
           <input
             type="email"
             placeholder="Enter your email"
-            className="w-full border-b border-purple-200 p-2 focus:outline-none focus:border-purple-500"
+            className="w-full border-b border-[rgba(218,174,227,255)] p-2 focus:outline-none focus:border-purple-300"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={isOtpGenerated}
           />
         </div>
 
-        <div className="mt-4 text-left">
+        <div className="mt-4 text-left mb-10 ">
           <input
             type="text"
             placeholder="Enter OTP"
-            className="w-full border-b border-purple-200 p-2 focus:outline-none focus:border-purple-500"
+            className="w-full border-b border-[rgba(218,174,227,255)] p-2 focus:outline-none focus:border-purple-300"
             value={otp}
             onChange={(e) => setOtp(e.target.value)}
             disabled={!isOtpGenerated}
@@ -73,20 +73,20 @@ const Login = () => {
 
         <button
           onClick={isOtpGenerated ? handleLogin : handleGenerateOtp}
-          className="mt-6 w-full bg-white text-purple-500 border border-purple-500 py-2 hover:bg-gray-100 transition"
+          className="mb-6 w- bg-white text-purple-500 border border-purple-500 py-2 hover:bg-gray-100 transition"
         >
           {isOtpGenerated ? "Submit" : "Generate OTP"}
         </button>
 
         {isOtpGenerated && (
-          <p className="mt-3 text-sm text-purple-600 cursor-pointer" onClick={handleGenerateOtp}>
+          <p className="mt-3 text-md text-black-600 cursor-pointer underline mr-52" onClick={handleGenerateOtp}>
             Resend OTP
           </p>
         )}
 
-        <p className="mt-4 text-gray-600 text-sm">
+        <p className="mt-4 text-gray-500 text-sm">
           Don’t have an account?{" "}
-          <span className="text-purple-500 cursor-pointer underline" onClick={() => navigate("/signup")}>
+          <span className="text-gray-500 cursor-pointer underline" onClick={() => navigate("/signup")}>
             Sign Up
           </span>
         </p>
