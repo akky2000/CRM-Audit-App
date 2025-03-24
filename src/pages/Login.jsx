@@ -40,27 +40,20 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center  h-screen bg-gradient-to-r from-gray-100 to-purple-100 w-[100vw] ">
-      <div className="bg-white  shadow-lg w-96 p-7 text-center">
-        <div className="flex justify-center items-center gap-4   ">
-          <img src={image1} alt="Image 1" className="w-7 h-9 mb-14" />
-          <img src={boundarylogo} alt="Boundary Logo" className="w-26 h-9 mb-14" />
     <div className="flex justify-center items-center h-screen bg-gradient-to-r from-gray-100 to-purple-100 w-[100vw]">
-      <div className="bg-white p-8 rounded-2xl shadow-lg w-96 text-center">
-        <div className="flex justify-center items-center gap-4 mb-2">
-          <img src={image1} alt="Image 1" className="w-8 h-12" />
-          <img src={boundarylogo} alt="Boundary Logo" className="w-20" />
+      <div className="bg-white shadow-lg w-96 p-7 text-center">
+        <div className="flex justify-center items-center gap-4 mb-4">
+          <img src={image1} alt="Image 1" className="w-7 h-9" />
+          <img src={boundarylogo} alt="Boundary Logo" className="w-20 h-9" />
         </div>
 
-        <h2 className="text-xl font-semibold text-black p-42 ml-3  ">
-            Audit App | Sign In
-        </h2>
+        <h2 className="text-xl font-semibold text-black">Audit App | Sign In</h2>
 
-        <div className="mt-11 text-left ">
+        <div className="mt-6 text-left">
           <input
             type="email"
             placeholder="Enter your email"
-            className="w-full border-b border-purple-200 p-2 focus:outline-none focus:border-purple-500 "
+            className="w-full border-b border-purple-200 p-2 focus:outline-none focus:border-purple-500"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={isOtpGenerated}
@@ -80,44 +73,31 @@ const Login = () => {
 
         <button
           onClick={isOtpGenerated ? handleLogin : handleGenerateOtp}
-          className="mt-9 w-31 h-12 bg-white text-purple-500 border border-purple-500  py-2  hover:bg-white transition"
+          className="mt-6 w-full bg-white text-purple-500 border border-purple-500 py-2 hover:bg-gray-100 transition"
         >
           {isOtpGenerated ? "Submit" : "Generate OTP"}
         </button>
 
-      
         {isOtpGenerated && (
-          <p className="mt-3  mr-56 text-semibold text-black-200  cursor-pointer underline" onClick={handleGenerateOtp}>
-          <p
-            className="mt-3 text-sm text-purple-600 cursor-pointer"
-            onClick={handleGenerateOtp}
-          >
+          <p className="mt-3 text-sm text-purple-600 cursor-pointer" onClick={handleGenerateOtp}>
             Resend OTP
           </p>
         )}
 
-        <p className="mt-4 text-gray-600 text-sm mt-7">
-          Don’t have an account?{" "}
-          <span className="text-gray  cursor-pointer underline" onClick={() => navigate("")}>
         <p className="mt-4 text-gray-600 text-sm">
           Don’t have an account?{" "}
-          <span
-            className="text-purple-500 cursor-pointer"
-            onClick={() => navigate("/signup")}
-          >
+          <span className="text-purple-500 cursor-pointer underline" onClick={() => navigate("/signup")}>
             Sign Up
           </span>
         </p>
 
         {otpSent && (
-          <div className="p-2 bg-green-100 text-green-700 text-sm rounded-md text-center">
-          OTP sent successfully!
-        </div>
-      )}
-    </div>
+          <div className="mt-4 p-2 bg-green-100 text-green-700 text-sm rounded-md text-center">
+            OTP sent successfully!
+          </div>
+        )}
       </div>
-     
-      
+    </div>
   );
 };
 

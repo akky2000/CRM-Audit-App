@@ -15,15 +15,11 @@ const Ticket = ({
   const { missing_data, junk_data, total_tickets } = score_data;
   const [isMissingDataExpanded, setIsMissingDataExpanded] = useState(true);
   const [isDeletingDataExpanded, setIsDeletingDataExpanded] = useState(true);
-  const [firstRowSelectedItem, setfirstRowSelectedItem] =
-    useState("without_name");
-  const [secondRowSelectedItem, setSecondRowSelectedItem] =
-    useState("without_priority");
+  const [firstRowSelectedItem, setfirstRowSelectedItem] = useState("without_name");
+  const [secondRowSelectedItem, setSecondRowSelectedItem] = useState("without_priority");
   const [firstDatapoint, setFirstDatapoint] = useState("subject");
   const [secondDataPoint, setSecondDataPoint] = useState("hs_ticket_priority");
-  const [lastDataPoint, setLastDataPoint] = useState(
-    "no_activity_in_last_180_days"
-  );
+  const [lastDataPoint, setLastDataPoint] = useState("no_activity_in_last_180_days");
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
   const [requestModalData, setRequestModalData] = useState({
     selectedItems: [],
@@ -44,11 +40,10 @@ const Ticket = ({
     },
     group3: {
       tickets_without_name_and_owner: false,
-      tickets_with_no_activity_in_last_180_days: false,
     },
     group4: {
-      tickets_without_name_and_owner: false,
       tickets_with_no_activity_in_last_180_days: false,
+      tickets_without_name_and_owner: false,
     },
   });
 
@@ -155,48 +150,36 @@ const Ticket = ({
   };
 
   const toggleSection = (section) => {
-    switch (section) {
-      case "missingData":
-        setIsMissingDataExpanded(!isMissingDataExpanded);
-        break;
-      case "deletingData":
-        setIsDeletingDataExpanded(!isDeletingDataExpanded);
-        break;
-    }
+    if (section === "missingData") setIsMissingDataExpanded(!isMissingDataExpanded);
+    if (section === "deletingData") setIsDeletingDataExpanded(!isDeletingDataExpanded);
   };
 
   if (!score_data) {
-    return (
-      <div className="report-details">
-        <p>No data available for Tickets.</p>
-      </div>
-    );
+    return <div className="p-4">No data available for Tickets.</div>;
   }
 
   return (
-    <div className="report-details">
+    <div className="text-gray-700 rounded-lg border-gray-300">
       {/* Missing Data Section */}
-      <section className="report-details__subSection">
-        <div className="report-details__section-header">
-          <h3 className="report-details__subtitle">
-            Missing Data - <h4 style={{ marginLeft: "4px" }}>Tickets</h4>
-          </h3>
-          <button
-            className="report-details__toggle-button"
+      <section className="bg-white rounded-md mb-6">
+        <div className="flex justify-between items-center px-6 py-4">
+          <h3 className="text-xl font-bold">Missing Data - Tickets</h3>
+          <p
             onClick={() => toggleSection("missingData")}
+            className="cursor-pointer"
           >
             {isMissingDataExpanded ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="#333"
-                class="size-5"
+                className="size-5"
                 style={{ height: "15px" }}
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M9.47 6.47a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 1 1-1.06 1.06L10 8.06l-3.72 3.72a.75.75 0 0 1-1.06-1.06l4.25-4.25Z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 />
               </svg>
             ) : (
@@ -204,386 +187,215 @@ const Ticket = ({
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="#333"
-                class="size-5"
+                className="size-5"
                 style={{ height: "15px" }}
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 />
               </svg>
             )}
-          </button>
+          </p>
         </div>
         {isMissingDataExpanded && (
-          <>
+          <div className="space-y-12 p-4">
+            {/* Fix This First */}
             <div>
-              <div className="report-details__missing_title">
-                <p>Fix this first - fast!</p>
-              </div>
-              <div className="report-details__card">
-                <div
-                  className={`report-details__data-div ${
-                    firstRowSelectedItem === "without_name"
-                      ? "selected-item"
-                      : ""
-                  }  ${getBorderColor(missing_data?.without_name?.risk)}`}
-                  onClick={() => {
-                    setfirstRowSelectedItem("without_name");
-                    handleFirstDataPointChange("subject");
-                  }}
-                >
-                  <div className="report-details__data-item">
-                    <p className="report-details__data-div-heading">
-                      <p>Tickets without Name</p>
-                      <Tooltip tooltipText="These tickets do not have a subject or title, which is typically used to identify the issue being reported.">
+              <h4 className="text-xl text-start font-semibold text-gray-900 mb-4 md:ml-2">
+                Fix this first - fast!
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mx-4">
+                {[
+                  {
+                    key: "without_name",
+                    label: "Tickets without Name",
+                    dataPoint: "subject",
+                    inference: "These tickets do not have a subject or title, which is typically used to identify the issue being reported."
+                  },
+                  {
+                    key: "without_owner",
+                    label: "Tickets without Owner",
+                    dataPoint: "hubspot_owner_id",
+                    inference: "These tickets do not have an assigned owner, meaning no specific user is responsible for handling them."
+                  },
+                  {
+                    key: "without_associated_contacts_email_phone",
+                    label: "Tickets without Associated Contact",
+                    dataPoint: "tickets_associated_contacts",
+                    inference: "These tickets are not linked to any contact, this also contains those contains which neither have name nor email."
+                  },
+                  {
+                    key: "without_num_associated_company",
+                    label: "Tickets without Associated Company",
+                    dataPoint: "hs_num_associated_companies",
+                    inference: "These tickets are not linked to any company, meaning they do not have an associated business entity recorded."
+                  },
+                ].map((item) => (
+                  <div
+                    key={item.key}
+                    className={`relative p-4 border rounded-lg shadow cursor-pointer transition-transform duration-300 ${
+                      firstRowSelectedItem === item.key
+                        ? "bg-gradient-to-r from-[#e3ffff] to-[#e6e4ef]"
+                        : "bg-white"
+                    } ${getBorderColor(missing_data[item.key]?.risk)}`}
+                    onClick={() => {
+                      setfirstRowSelectedItem(item.key);
+                      handleFirstDataPointChange(item.dataPoint);
+                    }}
+                  >
+                    <div className="flex items-start justify-between">
+                      <p className="text-sm font-medium text-gray-600 pr-6 text-start min-h-12 max-w-60">
+                        {item.label}
+                      </p>
+                      <Tooltip tooltipText={item.inference}>
                         <img
-                          className="info-image"
+                          className="h-4"
                           src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
+                          alt="Info"
                         />
                       </Tooltip>
-                      <img
-                        src={findRiskImage(missing_data?.without_name?.risk)}
-                      ></img>
-                    </p>
-                    <p className="report-details__data-div-score">
-                      <strong>{missing_data?.without_name?.percent}%</strong>
-                    </p>
-                    <p className="report-details__data-div-total">
-                      {missing_data?.without_name?.count?.toLocaleString()}{" "}
-                      <span>/ {total_tickets?.toLocaleString()}</span>
-                    </p>
-                  </div>
-                </div>
+                    </div>
 
-                <div
-                  className={`report-details__data-div ${
-                    firstRowSelectedItem === "without_owner"
-                      ? "selected-item"
-                      : ""
-                  }  ${getBorderColor(missing_data?.without_owner?.risk)}`}
-                  onClick={() => {
-                    setfirstRowSelectedItem("without_owner");
-                    handleFirstDataPointChange("hubspot_owner_id");
-                  }}
-                >
-                  <div className="report-details__data-item">
-                    <p className="report-details__data-div-heading">
-                      <p> Tickets without Owner</p>
-                      <Tooltip tooltipText="These tickets do not have an assigned owner, meaning no specific user is responsible for handling them.">
-                        <img
-                          className="info-image"
-                          src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
-                        />
-                      </Tooltip>
-                      <img
-                        src={findRiskImage(missing_data?.without_owner?.risk)}
-                      ></img>
-                    </p>
-                    <p className="report-details__data-div-score">
-                      <strong>{missing_data?.without_owner?.percent}%</strong>
-                    </p>
-                    <p className="report-details__data-div-total">
-                      {missing_data?.without_owner?.count?.toLocaleString()}{" "}
-                      <span>/ {total_tickets?.toLocaleString()}</span>
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className={`report-details__data-div ${
-                    firstRowSelectedItem ===
-                    "without_associated_contacts_email_phone"
-                      ? "selected-item"
-                      : ""
-                  }  ${getBorderColor(
-                    missing_data?.without_associated_contacts_email_phone?.risk
-                  )}`}
-                  onClick={() => {
-                    setfirstRowSelectedItem(
-                      "without_associated_contacts_email_phone"
-                    );
-                    handleFirstDataPointChange("tickets_associated_contacts");
-                  }}
-                >
-                  <div className="report-details__data-item">
-                    <p className="report-details__data-div-heading">
-                      <p>Tickets without Associated Contact</p>
-                      <Tooltip tooltipText="These tickets are not linked to any contact, this also contains those contains which neither have name nor email.">
-                        <img
-                          className="info-image"
-                          src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
-                        />
-                      </Tooltip>
-                      <img
-                        src={findRiskImage(
-                          missing_data?.without_associated_contacts_email_phone
-                            ?.risk
-                        )}
-                      ></img>
-                    </p>
-                    <p className="report-details__data-div-score">
-                      <strong>
-                        {
-                          missing_data?.without_associated_contacts_email_phone
-                            ?.percent
-                        }
-                        %
-                      </strong>
-                    </p>
-                    <p className="report-details__data-div-total">
-                      {missing_data?.without_associated_contacts_email_phone?.count?.toLocaleString()}{" "}
-                      <span>/ {total_tickets?.toLocaleString()}</span>
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className={`report-details__data-div ${
-                    firstRowSelectedItem === "without_num_associated_company"
-                      ? "selected-item"
-                      : ""
-                  }  ${getBorderColor(
-                    missing_data?.without_num_associated_company?.risk
-                  )}`}
-                  onClick={() => {
-                    setfirstRowSelectedItem("without_num_associated_company");
-                    handleFirstDataPointChange("hs_num_associated_companies");
-                  }}
-                >
-                  <div className="report-details__data-item">
-                    <p className="report-details__data-div-heading">
-                      <p>Tickets without Associated Company</p>
-                      <Tooltip tooltipText="These tickets are not linked to any company, meaning they do not have an associated business entity recorded.">
-                        <img
-                          className="info-image"
-                          src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
-                        />
-                      </Tooltip>
-                      <img
-                        src={findRiskImage(
-                          missing_data?.without_num_associated_company?.risk
-                        )}
-                      ></img>
-                    </p>
-                    <p className="report-details__data-div-score">
-                      <strong>
-                        {missing_data?.without_num_associated_company?.percent}%
-                      </strong>
-                    </p>
-                    <p className="report-details__data-div-total">
-                      {missing_data?.without_num_associated_company?.count?.toLocaleString()}{" "}
-                      <span>/ {total_tickets?.toLocaleString()}</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div className="audit-report__chart-container">
-                  <div className="audit-report__chart">
-                    <BarChart
-                      graphData={graphData}
-                      dataPoint={firstDatapoint}
-                      missingData={missing_data}
-                      inferenceKey={firstRowSelectedItem}
+                    <div className="flex flex-col items-start gap-2 justify-start mt-2">
+                      <p className="text-3xl font-bold text-gray-900">
+                        {missing_data[item.key]?.percent}%
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        {missing_data[item.key]?.count.toLocaleString()}{" "}
+                        <span className="text-gray-400">
+                          / {total_tickets.toLocaleString()}
+                        </span>
+                      </p>
+                    </div>
+                    <img
+                      className="absolute bottom-4 right-4 h-4"
+                      src={findRiskImage(missing_data[item.key]?.risk)}
+                      alt={missing_data[item.key]?.risk}
                     />
                   </div>
-                </div>
+                ))}
+              </div>
+              <div className="mt-8">
+                <BarChart
+                  dataPoint={firstDatapoint}
+                  graphData={graphData}
+                  missingData={missing_data}
+                  inferenceKey={firstRowSelectedItem}
+                />
               </div>
             </div>
+
+            {/* Must Fix */}
             <div>
-              <div className="report-details__missing_title">
-                <p>Must-Have</p>
-              </div>
-              <div className="report-details__card">
-                <div
-                  className={`report-details__data-div ${
-                    secondRowSelectedItem === "without_priority"
-                      ? "selected-item"
-                      : ""
-                  }  ${getBorderColor(missing_data?.without_priority?.risk)}`}
-                  onClick={() => {
-                    setSecondRowSelectedItem("without_priority");
-                    handleSecondDataPointChange("hs_ticket_priority");
-                  }}
-                >
-                  <div className="report-details__data-item">
-                    <p className="report-details__data-div-heading">
-                      <p>Tickets without Priority</p>
-                      <Tooltip tooltipText="These tickets do not have a priority level assigned, which is used to indicate their level of urgency.">
+              <h4 className="text-xl font-semibold text-gray-900 mb-4 text-start md:ml-2">
+                Must Fix
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mx-4">
+                {[
+                  {
+                    key: "without_priority",
+                    label: "Tickets without Priority",
+                    dataPoint: "hs_ticket_priority",
+                    inference: "These tickets do not have a priority level assigned, which is used to indicate their level of urgency."
+                  },
+                  {
+                    key: "without_description",
+                    label: "Tickets without Description",
+                    dataPoint: "content",
+                    inference: "These tickets do not contain a description, which is typically used to provide details about the issue or request."
+                  },
+                  {
+                    key: "without_pipeline_name",
+                    label: "Tickets without Pipeline Name",
+                    dataPoint: "hs_pipeline",
+                    inference: "These tickets are not assigned to a specific pipeline, which is used to track the stage or progress of a ticket."
+                  },
+                  {
+                    key: "without_status",
+                    label: "Tickets without Status",
+                    dataPoint: "hs_pipeline_stage",
+                    inference: "These tickets do not have a status assigned, which is typically used to indicate whether they are open, in progress, or resolved."
+                  },
+                ].map((item) => (
+                  <div
+                    key={item.key}
+                    className={`relative p-4 border rounded-lg shadow cursor-pointer transition-transform duration-300 ${
+                      secondRowSelectedItem === item.key
+                        ? "bg-gradient-to-r from-[#e3ffff] to-[#e6e4ef]"
+                        : "bg-white"
+                    } ${getBorderColor(missing_data[item.key]?.risk)}`}
+                    onClick={() => {
+                      setSecondRowSelectedItem(item.key);
+                      handleSecondDataPointChange(item.dataPoint);
+                    }}
+                  >
+                    <div className="flex items-start justify-between">
+                      <p className="text-sm font-medium text-gray-600 pr-6 text-start min-h-12 max-w-48">
+                        {item.label}
+                      </p>
+                      <Tooltip tooltipText={item.inference}>
                         <img
-                          className="info-image"
+                          className="h-4"
                           src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
+                          alt="Info"
                         />
                       </Tooltip>
-                      <img
-                        src={findRiskImage(
-                          missing_data?.without_priority?.risk
-                        )}
-                      ></img>
-                    </p>
-                    <p className="report-details__data-div-score">
-                      <strong>
-                        {missing_data?.without_priority?.percent}%
-                      </strong>
-                    </p>
-                    <p className="report-details__data-div-total">
-                      {missing_data?.without_priority?.count?.toLocaleString()}{" "}
-                      <span>/ {total_tickets?.toLocaleString()}</span>
-                    </p>
-                  </div>
-                </div>
+                    </div>
 
-                <div
-                  className={`report-details__data-div ${
-                    secondRowSelectedItem === "without_description"
-                      ? "selected-item"
-                      : ""
-                  }  ${getBorderColor(
-                    missing_data?.without_description?.risk
-                  )}`}
-                  onClick={() => {
-                    setSecondRowSelectedItem("without_description");
-                    handleSecondDataPointChange("content");
-                  }}
-                >
-                  <div className="report-details__data-item">
-                    <p className="report-details__data-div-heading">
-                      <p> Tickets without Ticket Description</p>
-                      <Tooltip tooltipText="These tickets do not contain a description, which is typically used to provide details about the issue or request.">
-                        <img
-                          className="info-image"
-                          src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
-                        />
-                      </Tooltip>
-                      <img
-                        src={findRiskImage(
-                          missing_data?.without_description?.risk
-                        )}
-                      ></img>
-                    </p>
-                    <p className="report-details__data-div-score">
-                      <strong>
-                        {missing_data?.without_description?.percent}%
-                      </strong>
-                    </p>
-                    <p className="report-details__data-div-total">
-                      {missing_data?.without_description?.count?.toLocaleString()}{" "}
-                      <span>/ {total_tickets?.toLocaleString()}</span>
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className={`report-details__data-div ${
-                    secondRowSelectedItem === "without_pipeline_name"
-                      ? "selected-item"
-                      : ""
-                  }  ${getBorderColor(
-                    missing_data?.without_pipeline_name?.risk
-                  )}`}
-                  onClick={() => {
-                    setSecondRowSelectedItem("without_pipeline_name");
-                    handleSecondDataPointChange("hs_pipeline");
-                  }}
-                >
-                  <div className="report-details__data-item">
-                    <p className="report-details__data-div-heading">
-                      <p>Lost Tickets without Pipeline Name</p>
-                      <Tooltip tooltipText="These tickets are not assigned to a specific pipeline, which is used to track the stage or progress of a ticket.">
-                        <img
-                          className="info-image"
-                          src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
-                        />
-                      </Tooltip>
-                      <img
-                        src={findRiskImage(
-                          missing_data?.without_pipeline_name?.risk
-                        )}
-                      ></img>
-                    </p>
-                    <p className="report-details__data-div-score">
-                      <strong>
-                        {missing_data?.without_pipeline_name?.percent}%
-                      </strong>
-                    </p>
-                    <p className="report-details__data-div-total">
-                      {missing_data?.without_pipeline_name?.count?.toLocaleString()}{" "}
-                      <span>/ {total_tickets?.toLocaleString()}</span>
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className={`report-details__data-div ${
-                    secondRowSelectedItem === "without_status"
-                      ? "selected-item"
-                      : ""
-                  }  ${getBorderColor(missing_data?.without_status?.risk)}`}
-                  onClick={() => {
-                    setSecondRowSelectedItem("without_status");
-                    handleSecondDataPointChange("hs_pipeline_stage");
-                  }}
-                >
-                  <div className="report-details__data-item">
-                    <p className="report-details__data-div-heading">
-                      <p>Tickets without Status</p>
-                      <Tooltip tooltipText="These tickets do not have a status assigned, which is typically used to indicate whether they are open, in progress, or resolved.">
-                        <img
-                          className="info-image"
-                          src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
-                        />
-                      </Tooltip>
-                      <img
-                        src={findRiskImage(missing_data?.without_status?.risk)}
-                      ></img>
-                    </p>
-                    <p className="report-details__data-div-score">
-                      <strong>{missing_data?.without_status?.percent}%</strong>
-                    </p>
-                    <p className="report-details__data-div-total">
-                      {missing_data?.without_status?.count?.toLocaleString()}{" "}
-                      <span>/ {total_tickets?.toLocaleString()}</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div className="audit-report__chart-container">
-                  <div className="audit-report__chart">
-                    <BarChart
-                      graphData={graphData}
-                      dataPoint={secondDataPoint}
-                      missingData={missing_data}
-                      inferenceKey={secondRowSelectedItem}
+                    <div className="flex flex-col items-start gap-2 justify-start mt-2">
+                      <p className="text-3xl font-bold text-gray-900">
+                        {missing_data[item.key]?.percent}%
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        {missing_data[item.key]?.count.toLocaleString()}{" "}
+                        <span className="text-gray-400">
+                          / {total_tickets.toLocaleString()}
+                        </span>
+                      </p>
+                    </div>
+                    <img
+                      className="absolute bottom-4 right-4 h-4"
+                      src={findRiskImage(missing_data[item.key]?.risk)}
+                      alt={missing_data[item.key]?.risk}
                     />
                   </div>
-                </div>
+                ))}
+              </div>
+              <div className="mt-8">
+                <BarChart
+                  dataPoint={secondDataPoint}
+                  graphData={graphData}
+                  missingData={missing_data}
+                  inferenceKey={secondRowSelectedItem}
+                />
               </div>
             </div>
-          </>
+          </div>
         )}
       </section>
-      <section className="report-details__subSection">
-        <div className="report-details__section-header">
-          <h3 className="report-details__subtitle">Consider Deleting</h3>
-          <button
-            className="report-details__toggle-button"
+
+      {/* Consider Deleting Section */}
+      <section className="bg-white rounded-md shadow mb-6">
+        <div className="flex justify-between items-center px-6 py-4">
+          <h3 className="text-xl font-bold">Consider Deleting</h3>
+          <p
             onClick={() => toggleSection("deletingData")}
+            className="cursor-pointer"
           >
             {isDeletingDataExpanded ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="#333"
-                class="size-5"
+                className="size-5"
                 style={{ height: "15px" }}
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M9.47 6.47a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 1 1-1.06 1.06L10 8.06l-3.72 3.72a.75.75 0 0 1-1.06-1.06l4.25-4.25Z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 />
               </svg>
             ) : (
@@ -591,165 +403,109 @@ const Ticket = ({
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="#333"
-                class="size-5"
+                className="size-5"
                 style={{ height: "15px" }}
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 />
               </svg>
             )}
-          </button>
+          </p>
         </div>
         {isDeletingDataExpanded && (
-          <>
-            <div className="report-details__card">
-              <div
-                className={`report-details__duplicate-data-div  ${getBorderColor(
-                  junk_data?.no_activity_in_last_180_days?.risk
-                )} ${
-                  lastDataPoint === "no_activity_in_last_180_days"
-                    ? "selected-item"
-                    : ""
-                }  `}
-                onClick={() => {
-                  setLastDataPoint("no_activity_in_last_180_days");
-                }}
-              >
-                <div className="report-details__data-item">
-                  <p className="report-details__data-div-heading">
-                    <p style={{ width: "inherit" }}>
-                      Tickets have no activity in the last 180 days
+          <div className="p-4 space-y-8">
+            <div className="grid md:grid-cols-2 gap-4 mx-4">
+              {[
+                {
+                  key: "no_activity_in_last_180_days",
+                  label: "Tickets Without Activity in Last 180 Days",
+                  dataPoint: "no_activity_in_last_180_days",
+                  inference: "These tickets have been inactive for the last 180 days, with no recorded updates, communications, or engagement."
+                },
+                {
+                  key: "without_name_and_owner",
+                  label: "Tickets without Name and Owner",
+                  dataPoint: "without_name_and_owner",
+                  inference: "These tickets are missing both a subject/title and an assigned owner, making them incomplete in terms of identification and responsibility."
+                },
+              ].map((item) => (
+                <div
+                  key={item.key}
+                  className={`p-4 border rounded-lg shadow cursor-pointer ${getBorderColor(
+                    junk_data[item.key]?.risk
+                  )} ${
+                    lastDataPoint === item.key
+                      ? "bg-gradient-to-r from-[#e3ffff] to-[#e6e4ef]"
+                      : "bg-white"
+                  }`}
+                  onClick={() => setLastDataPoint(item.key)}
+                >
+                  <div className="flex items-start justify-between">
+                    <p className="text-sm font-medium text-gray-600 pr-6 text-start">
+                      {item.label}
                     </p>
-                    <Tooltip tooltipText="These tickets have been inactive for the last 180 days, with no recorded updates, communications, or engagement.">
+                    <Tooltip tooltipText={item.inference}>
                       <img
-                        className="info-image"
+                        className="h-4"
                         src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
+                        alt="Info"
                       />
                     </Tooltip>
-                    <img
-                      src={findRiskImage(
-                        junk_data?.no_activity_in_last_180_days?.risk
-                      )}
-                    ></img>
-                  </p>
-                  <p className="report-details__data-div-score">
-                    <strong>
-                      {junk_data?.no_activity_in_last_180_days?.count?.toLocaleString()}{" "}
-                      /
-                    </strong>
-                    <span
-                      style={{
-                        fontSize: "large",
-                        fontWeight: "100",
-                        color: "#333",
-                      }}
-                    >
-                      {total_tickets?.toLocaleString()}
-                    </span>
+                  </div>
+                  <p className="text-2xl font-bold my-2">
+                    {junk_data[item.key]?.count?.toLocaleString()} / {total_tickets?.toLocaleString()}
                   </p>
                 </div>
-              </div>
-
-              <div
-                className={`report-details__duplicate-data-div  ${getBorderColor(
-                  junk_data?.without_name_and_owner?.risk
-                )} ${
-                  lastDataPoint === "without_name_and_owner"
-                    ? "selected-item"
-                    : ""
-                }  `}
-                onClick={() => {
-                  setLastDataPoint("without_name_and_owner");
-                }}
-              >
-                <div className="report-details__data-item">
-                  <p className="report-details__data-div-heading">
-                    <p style={{ width: "inherit" }}>
-                      Tickets without name and owner
-                    </p>
-                    <Tooltip tooltipText="These tickets are missing both a subject/title and an assigned owner, making them incomplete in terms of identification and responsibility.">
-                      <img
-                        className="info-image"
-                        src="https://6343592.fs1.hubspotusercontent-na1.net/hubfs/6343592/info.png"
-                      />
-                    </Tooltip>
-                    <img
-                      src={findRiskImage(
-                        junk_data?.without_name_and_owner?.risk
-                      )}
-                    ></img>
-                  </p>
-                  <p className="report-details__data-div-score">
-                    <strong>
-                      {junk_data?.without_name_and_owner?.count?.toLocaleString()}{" "}
-                      /
-                    </strong>
-                    <span
-                      style={{
-                        fontSize: "large",
-                        fontWeight: "100",
-                        color: "#333",
-                      }}
-                    >
-                      {total_tickets?.toLocaleString()}
-                    </span>
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
-
-            <div>
-              <div className="audit-report__chart-container">
-                <div className="audit-report__chart">
-                  <BarChart
-                    graphData={graphData}
-                    dataPoint={lastDataPoint}
-                    missingData={junk_data}
-                    inferenceKey={lastDataPoint}
-                  />
-                </div>
-              </div>
+            <div className="mt-6">
+              <BarChart
+                dataPoint={lastDataPoint}
+                graphData={graphData}
+                missingData={junk_data}
+                inferenceKey={lastDataPoint}
+              />
             </div>
-          </>
+          </div>
         )}
       </section>
+      
 
-      <section className={` ${page === "past" ? "blur-action-section" : ""} `}>
+      {/* Take Bulk Action */}
+      <section className={`bg-white rounded-md shadow p-6 ${page === "past" ? "opacity-50" : ""}`}>
         {page === "past" && (
-          <div className="past-overlay-message">
+          <div className="text-center text-gray-500 mb-4">
             Can't take action in past report
           </div>
         )}
-        <div
-          className="report-details__take-action report-details__subSection"
-          id="take_action"
-        >
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <h4 className="report-details__action-title">Take Bulk Action</h4>
-            <button
-              className="overall_audit_action"
-              onClick={() =>
-                document
-                  .getElementById("overall_audit_section")
-                  .scrollIntoView({ behavior: "smooth" })
-              }
-            >
-              Move to Top ↑
-            </button>
-          </div>
-          <div className="report-details__action-group">
-            <div className="report-details__list_main">
-              <div className="report-details__checkbox-group">
-                <h5>Fix this first - fast!</h5>
-                <label>
+        
+        <div className="flex justify-between items-center mb-4">
+          <h4 className="text-lg font-semibold">Take Bulk Action</h4>
+          <button 
+            className=""
+            onClick={() =>
+              document
+                .getElementById("overall_audit_section")
+                .scrollIntoView({ behavior: "smooth" })
+            }
+          >
+            Move to Top ↑
+          </button>
+        </div>
+        
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Group 1: Fix this first - fast! */}
+            <div className="space-y-3 bg-gray-50 p-4 rounded-lg flex flex-col">
+              <h5 className="font-medium">Fix this first - fast!</h5>
+              <div className="space-y-3 flex-grow">
+                <label className="flex items-center space-x-2">
                   <input
                     type="checkbox"
-                    checked={
-                      ticketActiveListSelections.group1.tickets_without_name
-                    }
+                    checked={ticketActiveListSelections.group1.tickets_without_name}
                     onChange={(e) =>
                       handleTicketCheckboxChange(
                         "group1",
@@ -757,15 +513,14 @@ const Ticket = ({
                         e.target.checked
                       )
                     }
+                    className="rounded text-blue-600"
                   />
-                  Tickets without Name
+                  <span>Tickets without Name</span>
                 </label>
-                <label>
+                <label className="flex items-center space-x-2">
                   <input
                     type="checkbox"
-                    checked={
-                      ticketActiveListSelections.group1.tickets_without_owner
-                    }
+                    checked={ticketActiveListSelections.group1.tickets_without_owner}
                     onChange={(e) =>
                       handleTicketCheckboxChange(
                         "group1",
@@ -773,33 +528,14 @@ const Ticket = ({
                         e.target.checked
                       )
                     }
+                    className="rounded text-blue-600"
                   />
-                  Tickets without Owner
+                  <span>Tickets without Owner</span>
                 </label>
-                {/* <label>
+                <label className="flex items-center space-x-2">
                   <input
                     type="checkbox"
-                    checked={
-                      ticketActiveListSelections.group1
-                        .tickets_without_num_associated_contact
-                    }
-                    onChange={(e) =>
-                      handleTicketCheckboxChange(
-                        'group1',
-                        'tickets_without_num_associated_contact',
-                        e.target.checked,
-                      )
-                    }
-                  />
-                  Tickets without Associated Contact
-                </label> */}
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={
-                      ticketActiveListSelections.group1
-                        .tickets_without_num_associated_company
-                    }
+                    checked={ticketActiveListSelections.group1.tickets_without_num_associated_company}
                     onChange={(e) =>
                       handleTicketCheckboxChange(
                         "group1",
@@ -807,29 +543,32 @@ const Ticket = ({
                         e.target.checked
                       )
                     }
+                    className="rounded text-blue-600"
                   />
-                  Tickets without Associated Company
+                  <span>Tickets without Associated Company</span>
                 </label>
-                <button
-                  onClick={() => handleCreateActiveList("group1")}
-                  disabled={isGeneratingGraph}
-                  style={{
-                    cursor: isGeneratingGraph ? "not-allowed" : "pointer",
-                  }}
-                >
-                  Create Active List
-                </button>
               </div>
+              <button
+                onClick={() => handleCreateActiveList("group1")}
+                disabled={isGeneratingGraph}
+                className={`w-full mt-auto py-2 px-4 rounded-md ${
+                  isGeneratingGraph
+                    ? "bg-gray-300 cursor-not-allowed"
+                    : "bg-black-600 hover:bg-black-600 text-white"
+                }`}
+              >
+                Create Active List
+              </button>
+            </div>
 
-              {/* Group 2: Must Fix */}
-              <div className="report-details__checkbox-group">
-                <h5>Must Fix</h5>
-                <label>
+            {/* Group 2: Must Fix */}
+            <div className="space-y-3 bg-gray-50 p-4 rounded-lg flex flex-col">
+              <h5 className="font-medium">Must Fix</h5>
+              <div className="space-y-3 flex-grow">
+                <label className="flex items-center space-x-2">
                   <input
                     type="checkbox"
-                    checked={
-                      ticketActiveListSelections.group2.tickets_without_priority
-                    }
+                    checked={ticketActiveListSelections.group2.tickets_without_priority}
                     onChange={(e) =>
                       handleTicketCheckboxChange(
                         "group2",
@@ -837,16 +576,14 @@ const Ticket = ({
                         e.target.checked
                       )
                     }
+                    className="rounded text-blue-600"
                   />
-                  Tickets without Priority
+                  <span>Tickets without Priority</span>
                 </label>
-                <label>
+                <label className="flex items-center space-x-2">
                   <input
                     type="checkbox"
-                    checked={
-                      ticketActiveListSelections.group2
-                        .tickets_without_description
-                    }
+                    checked={ticketActiveListSelections.group2.tickets_without_description}
                     onChange={(e) =>
                       handleTicketCheckboxChange(
                         "group2",
@@ -854,16 +591,14 @@ const Ticket = ({
                         e.target.checked
                       )
                     }
+                    className="rounded text-blue-600"
                   />
-                  Tickets without Ticket Description
+                  <span>Tickets without Description</span>
                 </label>
-                <label>
+                <label className="flex items-center space-x-2">
                   <input
                     type="checkbox"
-                    checked={
-                      ticketActiveListSelections.group2
-                        .tickets_without_pipeline_name
-                    }
+                    checked={ticketActiveListSelections.group2.tickets_without_pipeline_name}
                     onChange={(e) =>
                       handleTicketCheckboxChange(
                         "group2",
@@ -871,15 +606,14 @@ const Ticket = ({
                         e.target.checked
                       )
                     }
+                    className="rounded text-blue-600"
                   />
-                  Lost Tickets without Pipeline Name
+                  <span>Tickets without Pipeline Name</span>
                 </label>
-                <label>
+                <label className="flex items-center space-x-2">
                   <input
                     type="checkbox"
-                    checked={
-                      ticketActiveListSelections.group2.tickets_without_status
-                    }
+                    checked={ticketActiveListSelections.group2.tickets_without_status}
                     onChange={(e) =>
                       handleTicketCheckboxChange(
                         "group2",
@@ -887,50 +621,34 @@ const Ticket = ({
                         e.target.checked
                       )
                     }
+                    className="rounded text-blue-600"
                   />
-                  Tickets without Status
+                  <span>Tickets without Status</span>
                 </label>
-                <button
-                  onClick={() => handleCreateActiveList("group2")}
-                  disabled={isGeneratingGraph}
-                  style={{
-                    cursor: isGeneratingGraph ? "not-allowed" : "pointer",
-                  }}
-                >
-                  Create Active List
-                </button>
               </div>
+              <button
+                onClick={() => handleCreateActiveList("group2")}
+                disabled={isGeneratingGraph}
+                className={`w-full mt-auto py-2 px-4 rounded-md ${
+                  isGeneratingGraph
+                    ? "bg-gray-300 cursor-not-allowed"
+                    : "bg-black-600 hover:bg-black-600 text-white"
+                }`}
+              >
+                Create Active List
+              </button>
             </div>
           </div>
-          <div className="report-details__action-group">
-            <div className="report-details__list_main">
-              {/* Group 3: Consider Deleting */}
-              <div className="report-details__checkbox-group">
-                <h5>Consider Deleting</h5>
-                {/* <label>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+           
+            <div className="space-y-3 bg-gray-50 p-4 rounded-lg flex flex-col">
+              <h5 className="font-medium">Consider Deleting</h5>
+              <div className="space-y-3 flex-grow">
+                <label className="flex items-center space-x-2">
                   <input
                     type="checkbox"
-                    checked={
-                      ticketActiveListSelections.group3
-                        .tickets_with_no_activity_in_last_180_days
-                    }
-                    onChange={(e) =>
-                      handleTicketCheckboxChange(
-                        'group3',
-                        'tickets_with_no_activity_in_last_180_days',
-                        e.target.checked,
-                      )
-                    }
-                  />
-                  Tickets have no activity in the last 180 days
-                </label> */}
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={
-                      ticketActiveListSelections.group3
-                        .tickets_without_name_and_owner
-                    }
+                    checked={ticketActiveListSelections.group3.tickets_without_name_and_owner}
                     onChange={(e) =>
                       handleTicketCheckboxChange(
                         "group3",
@@ -938,28 +656,32 @@ const Ticket = ({
                         e.target.checked
                       )
                     }
+                    className="rounded text-blue-600"
                   />
-                  Tickets without name and owner
+                  <span>Tickets without Name and Owner</span>
                 </label>
-                <button
-                  onClick={() => handleCreateActiveList("group3")}
-                  disabled={isGeneratingGraph}
-                  style={{
-                    cursor: isGeneratingGraph ? "not-allowed" : "pointer",
-                  }}
-                >
-                  Create Active List
-                </button>
               </div>
-              <div className="report-details__checkbox-group">
-                <h5>Delete Junk</h5>
-                <label>
+              <button
+                onClick={() => handleCreateActiveList("group3")}
+                disabled={isGeneratingGraph}
+                className={`w-full mt-auto py-2 px-4 rounded-md ${
+                  isGeneratingGraph
+                    ? "bg-gray-300 cursor-not-allowed"
+                    : "bg-black-600 hover:bg-black-600 text-white"
+                }`}
+              >
+                Create Active List
+              </button>
+            </div>
+
+           
+            <div className="space-y-3 bg-gray-50 p-4 rounded-lg flex flex-col">
+              <h5 className="font-medium">Delete Junk</h5>
+              <div className="space-y-3 flex-grow">
+                <label className="flex items-center space-x-2">
                   <input
                     type="checkbox"
-                    checked={
-                      ticketActiveListSelections.group4
-                        .tickets_with_no_activity_in_last_180_days
-                    }
+                    checked={ticketActiveListSelections.group4.tickets_with_no_activity_in_last_180_days}
                     onChange={(e) =>
                       handleTicketCheckboxChange(
                         "group4",
@@ -967,16 +689,14 @@ const Ticket = ({
                         e.target.checked
                       )
                     }
+                    className="rounded text-blue-600"
                   />
-                  Tickets have no activity in the last 180 days
+                  <span>Tickets without activity in last 180 days</span>
                 </label>
-                <label>
+                <label className="flex items-center space-x-2">
                   <input
                     type="checkbox"
-                    checked={
-                      ticketActiveListSelections.group4
-                        .tickets_without_name_and_owner
-                    }
+                    checked={ticketActiveListSelections.group4.tickets_without_name_and_owner}
                     onChange={(e) =>
                       handleTicketCheckboxChange(
                         "group4",
@@ -984,23 +704,27 @@ const Ticket = ({
                         e.target.checked
                       )
                     }
+                    className="rounded text-blue-600"
                   />
-                  Tickets without name and owner
+                  <span>Tickets without Name and Owner</span>
                 </label>
-                <button
-                  onClick={() => handleDeleteActiveList("group4")}
-                  disabled={isGeneratingGraph}
-                  style={{
-                    cursor: isGeneratingGraph ? "not-allowed" : "pointer",
-                  }}
-                >
-                  Delete Junk
-                </button>
               </div>
+              <button
+                onClick={() => handleDeleteActiveList("group4")}
+                disabled={isGeneratingGraph}
+                className={`w-full mt-auto py-2 px-4 rounded-md ${
+                  isGeneratingGraph
+                    ? "bg-gray-300 cursor-not-allowed"
+                    : "bg-black-600 hover:bg-black-600 text-white"
+                }`}
+              >
+                Delete Junk
+              </button>
             </div>
           </div>
         </div>
       </section>
+
       <RequestModal
         isOpen={isRequestModalOpen}
         onClose={() => setIsRequestModalOpen(false)}

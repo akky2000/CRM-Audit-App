@@ -16,7 +16,7 @@ const DataAudit = () => {
 
   return (
     <div className="mb-6 p-10">
-      <div className="sticky top-[80px] z-50 flex bg-white">
+      <div className=" z-50 flex bg-white">
         {auditData.map((item, index) => (
           <div
             key={index}
