@@ -45,6 +45,11 @@ const Login = () => {
         <div className="flex justify-center items-center gap-4   ">
           <img src={image1} alt="Image 1" className="w-7 h-9 mb-14" />
           <img src={boundarylogo} alt="Boundary Logo" className="w-26 h-9 mb-14" />
+    <div className="flex justify-center items-center h-screen bg-gradient-to-r from-gray-100 to-purple-100 w-[100vw]">
+      <div className="bg-white p-8 rounded-2xl shadow-lg w-96 text-center">
+        <div className="flex justify-center items-center gap-4 mb-2">
+          <img src={image1} alt="Image 1" className="w-8 h-12" />
+          <img src={boundarylogo} alt="Boundary Logo" className="w-20" />
         </div>
 
         <h2 className="text-xl font-semibold text-black p-42 ml-3  ">
@@ -83,6 +88,10 @@ const Login = () => {
       
         {isOtpGenerated && (
           <p className="mt-3  mr-56 text-semibold text-black-200  cursor-pointer underline" onClick={handleGenerateOtp}>
+          <p
+            className="mt-3 text-sm text-purple-600 cursor-pointer"
+            onClick={handleGenerateOtp}
+          >
             Resend OTP
           </p>
         )}
@@ -90,6 +99,12 @@ const Login = () => {
         <p className="mt-4 text-gray-600 text-sm mt-7">
           Don’t have an account?{" "}
           <span className="text-gray  cursor-pointer underline" onClick={() => navigate("")}>
+        <p className="mt-4 text-gray-600 text-sm">
+          Don’t have an account?{" "}
+          <span
+            className="text-purple-500 cursor-pointer"
+            onClick={() => navigate("/signup")}
+          >
             Sign Up
           </span>
         </p>
@@ -101,7 +116,7 @@ const Login = () => {
       )}
     </div>
       </div>
-      
+     
       
   );
 };
