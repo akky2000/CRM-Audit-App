@@ -460,104 +460,90 @@ const Contact = ({
           </div>
         )}
       </section>
-
-      {/* Take Bulk Action */}
-    
-<section className={`bg-white rounded-md shadow p-6 ${page === 'past' ? 'filter blur-sm' : ''}`}>
+      <section className={`bg-white rounded-md shadow p-6 ${page === 'past' ? 'filter blur-sm' : ''}`}>
   {page === 'past' && (
-     <div className="text-center text-gray-500 mb-4">
-     Can't take action in past report
-   </div>
+    <div className="text-center text-gray-500 mb-4">Can't take action in past report</div>
   )}
 
+  <div className="flex justify-between items-center mb-4">
+    <h4 className="text-lg font-semibold">Take Bulk Action</h4>
+    <button 
+      className="bg-black text-white px-4 py-2 rounded-md"
+      onClick={() => document.getElementById("overall_audit_section").scrollIntoView({ behavior: "smooth" })}
+    >
+      Move to Top ↑
+    </button>
+  </div>
 
-<div className="flex justify-between items-center mb-4">
-<h4 className="text-lg font-semibold">Take Bulk Action</h4>
-<button 
-            className=""
-            onClick={() =>
-              document
-                .getElementById("overall_audit_section")
-                .scrollIntoView({ behavior: "smooth" })
-            }
-          >
-            Move to Top ↑
-          </button>
+  {/* Grid Layout for Proper Alignment */}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    
+    {/* Left Column */}
+    <div className="space-y-6">
+      
+      {/* Fix this first - fast! */}
+      <div className="bg-gray-50 p-6 border border-gray-200 rounded-lg shadow-sm flex flex-col justify-between min-h-[220px]">
+        <h5 className="font-medium mb-3 text-center">Fix this first - fast!</h5>
+        <div className="space-y-2 mb-3">
+          {['Contacts without First Name', 'Contacts without Email', 'Contacts without Owner'].map((label) => (
+            <label key={label} className="flex items-center space-x-2">
+              <input type="checkbox" className="h-4 w-4" />
+              <span>{label}</span>
+            </label>
+          ))}
+        </div>
+        <button className="w-full bg-black text-white text-sm rounded py-2">Create Active List</button>
+      </div>
+
+      {/* Consider Deleting */}
+      <div className="bg-gray-50 p-6 border border-gray-200 rounded-lg shadow-sm flex flex-col justify-between min-h-[220px]">
+        <h5 className="font-medium mb-3 text-center">Consider Deleting</h5>
+        <div className="space-y-2">
+          {['Contacts without Name and Email'].map((label) => (
+            <label key={label} className="flex items-center space-x-2">
+              <input type="checkbox" className="h-4 w-4" />
+              <span>{label}</span>
+            </label>
+          ))}
+        </div>
+        <button className="w-full bg-black text-white text-sm rounded py-2">Create Active List</button>
+      </div>
+
     </div>
 
-    {/* Vertical layout on mobile, horizontal on larger screens */}
-    <div className="flex flex-col md:flex-row gap-6 ">
-      {/* First vertical column */}
-      <div className="flex-1 space-y-24">
-
-        {/* Fix this first - fast! */}
-      <div className="space-y-3 bg-gray-50 p-4 border border-gray-200 rounded-lg flex flex-col ">
-              <h5 className="font-medium mb-2">Fix this first - fast!</h5>
-              <div className="space-y-2  mb-3 ">
-            {['Contacts without First Name', 'Contacts without Email', 'Contacts without Owner'].map((label) => (
-              <label key={label} className="flex items-center space-x-2 ">
-                <input type="checkbox" className="h-4 w-4" />
-                <span>{label}</span>
-              </label>
-            ))}
-          </div>
-          <button className="w-full bg-black text-white text-sm rounded py-2 ">
-            Create Active List
-          </button>
+    {/* Right Column */}
+    <div className="space-y-6">
+      
+      {/* Must Fix */}
+      <div className="bg-gray-50 p-6 border border-gray-200 rounded-lg shadow-sm flex flex-col justify-between min-h-[220px]">
+        <h5 className="font-medium mb-3 text-center">Must Fix</h5>
+        <div className="space-y-2">
+          {['Contacts without Phone Number', 'Contacts without Company', 'Contacts without Lifecycle Stage', 'Contacts without Lead Status'].map((label) => (
+            <label key={label} className="flex items-center space-x-2">
+              <input type="checkbox" className="h-4 w-4" />
+              <span>{label}</span>
+            </label>
+          ))}
         </div>
-
-        {/* Consider Deleting */}
-        <div className=" p-2  bg-gray-50 border border-gray-200 rounded  ">
-          <h4 className="font-semibold mb-4">Consider Deleting</h4>
-          <div className="space-y-2 mb-8">
-            {['Contacts without Name and Email'].map((label) => (
-              <label key={label} className="flex items-center space-x-2">
-                <input type="checkbox" className="h-4 w-4" />
-                <span>{label}</span>
-              </label>
-            ))}
-          </div>
-          <button className="w-full mt-10 bg-black text-white py-2 text-sm rounded">
-            Create Active List
-          </button>
-        </div>
+        <button className="w-full bg-black text-white text-sm rounded py-2">Create Active List</button>
       </div>
 
-      {/* Second vertical column */}
-      <div className="flex-1 space-y-4">
-        {/* Must Fix */}
-        <div className="  bg-gray-50 p-4 border border-gray-200 rounded">
-          <h4 className="font-semibold mb-2">Must Fix</h4>
-          <div className="space-y-2 mb-3">
-            {['Contacts without Phone Number', 'Contacts without Company', 'Contacts without Lifecycle Stage', 'Contacts without Lead Status'].map((label) => (
-              <label key={label} className="flex items-center space-x-2">
-                <input type="checkbox" className="h-4 w-4" />
-                <span>{label}</span>
-              </label>
-            ))}
-          </div>
-          <button className="w-full mt-4 bg-black text-white py-2 text-sm rounded">
-            Create Active List
-          </button>
+      {/* Delete Junk */}
+      <div className="bg-gray-50 p-6 border border-gray-200 rounded-lg shadow-sm flex flex-col justify-between min-h-[220px]">
+        <h5 className="font-medium mb-3 text-center">Delete Junk</h5>
+        <div className="space-y-2">
+          {['Contacts without activity in last 180 days'].map((label) => (
+            <label key={label} className="flex items-center space-x-2">
+              <input type="checkbox" className="h-4 w-4" />
+              <span>{label}</span>
+            </label>
+          ))}
         </div>
-
-        {/* Delete Junk */}
-        <div className="bg-gray-50 p-4 border border-gray-200 rounded pt-2 ">
-          <h4 className="font-semibold ">Delete Junk</h4>
-          <div className="space-y-2 mb-12">
-            {['Contacts without activity in last 180 days'].map((label) => (
-              <label key={label} className="flex items-center space-x-2">
-                <input type="checkbox" className="h-6 w-4 mb-6" />
-                <span>{label}</span>
-              </label>
-            ))}
-          </div>
-          <button className="w-full mt-8 bg-black text-white py-2 text-sm rounded">
-            Delete Junk
-          </button>
-        </div>
+        <button className="w-full bg-black text-white text-sm rounded py-2">Delete Junk</button>
       </div>
-  
+
+    </div>
+
   </div>
 </section>
 
