@@ -15,16 +15,23 @@ const DataAudit = () => {
   };
 
   return (
-    <div className="mb-6 px-4 md:px-10">
+    <div className="mb-6 px-4 md:px-10 lg:p-8">
       {/* Audit Score Section */}
-      <div className="w-full flex flex-wrap justify-center md:justify-start gap-10 bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+      <div className="w-full flex flex-wrap justify-center items-center
+         gap-6 bg-white p-6 rounded-xl shadow-lg 
+        border border-gray-200">
         {auditData.map((item, index) => (
           <div
             key={index}
-            className={`flex flex-col items-center justify-center w-48 h-24 md:w-56 md:h-28 text-center cursor-pointer border rounded-lg transition-all duration-300 ease-in-out shadow-md hover:shadow-lg transform hover:scale-105
-              ${selectedItem === item.title ? "bg-gradient-to-r from-[#e3ffff] to-[#e6e4ef] border-blue-300" :
-                item.issue ? "bg-white border-red-400" : "bg-white border-green-400"}
-            `}
+            className={`flex flex-col items-center justify-center w-64 h-32 text-center cursor-pointer
+               border border-gray-300 rounded-lg transition-all duration-300 ease-in-out shadow-md 
+               hover:shadow-lg transform hover:scale-105 ${
+              selectedItem === item.title
+                ? "bg-gradient-to-r from-[#e3ffff] to-[#e6e4ef] scale-105"
+                : item.issue
+                ? "bg-white border-red-300"
+                : "bg-white border-green-300"
+            }`}
             onClick={() => handleClick(item.title)}
           >
             <p className="text-lg font-semibold text-gray-800">{item.title}</p>
