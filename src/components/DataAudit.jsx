@@ -4,10 +4,10 @@ import MissingData from "../components/MissingData";
 const DataAudit = () => {
   const [selectedItem, setSelectedItem] = React.useState("Contacts");
   const auditData = [
-    { title: "Contacts", score: "60/100" },
-    { title: "Companies", score: "60/100" },
-    { title: "Deals", score: "60/100" },
-    { title: "Tickets", score: "60/100" },
+    { title: "Contacts", score: "60/100", issue: true },
+    { title: "Companies", score: "60/100", issue: true },
+    { title: "Deals", score: "60/100", issue: true },
+    { title: "Tickets", score: "60/100", issue: false },
   ];
 
   const handleClick = (itemTitle) => {
@@ -15,37 +15,28 @@ const DataAudit = () => {
   };
 
   return (
-    <div className="mb-6 p-10">
-      <div className=" z-50 flex bg-white">
+    <div className="mb-6 px-4 md:px-10">
+      {/* Audit Score Section */}
+      <div className="w-full flex flex-wrap justify-center md:justify-start gap-10 bg-white p-6 rounded-xl shadow-lg border border-gray-200">
         {auditData.map((item, index) => (
           <div
             key={index}
-            className={`px-20 pb-3 text-center cursor-pointer border-gray-300 bg-white hover:bg-gray-100 ${
-              selectedItem === item.title
-                ? "transform pt-2 border rounded-b-2xl -mb-6 text-xl  bg-gradient-to-r from-[#e3ffff] to-[#e6e4ef]"
-                : ""
-            }`}
+            className={`flex flex-col items-center justify-center w-48 h-24 md:w-56 md:h-28 text-center cursor-pointer border rounded-lg transition-all duration-300 ease-in-out shadow-md hover:shadow-lg transform hover:scale-105
+              ${selectedItem === item.title ? "bg-gradient-to-r from-[#e3ffff] to-[#e6e4ef] border-blue-300" :
+                item.issue ? "bg-white border-red-400" : "bg-white border-green-400"}
+            `}
             onClick={() => handleClick(item.title)}
           >
-            <p
-              className={`text-lg font-semibold ${
-                selectedItem === item.title ? "text-xl" : ""
-              }`}
-            >
-              {item.title}
-            </p>
-            <p
-              className={`text-lg font-semibold ${
-                selectedItem === item.title ? "text-xl" : ""
-              }`}
-            >
-              {item.score}
-            </p>
+            <p className="text-lg font-semibold text-gray-800">{item.title}</p>
+            <p className="text-md font-semibold text-gray-600">{item.score}</p>
           </div>
         ))}
       </div>
 
-      <MissingData selectedItem={selectedItem} />
+      {/* Missing Data Section */}
+      <div className="mt-6 w-full bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+        <MissingData selectedItem={selectedItem} />
+      </div>
     </div>
   );
 };

@@ -481,7 +481,7 @@ const Deal = ({
       Can't take action in past report
     </div>
   )}
-  
+  {/* take bulk action */}
   <div className="flex justify-between items-center mb-4">
     <h4 className="text-lg font-semibold">Take Bulk Action</h4>
     <button 
