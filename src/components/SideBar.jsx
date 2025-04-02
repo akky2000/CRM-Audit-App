@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FiMenu, FiPlus, FiX } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
 import boundaryLogo from "../images/boundary.png";
-import Logo1 from "../images/image1.png";
+import Logo1 from "../images/image.png";
 
 const Sidebar = () => {
   const location = useLocation();
